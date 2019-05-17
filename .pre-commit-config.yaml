@@ -1,0 +1,17 @@
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.2.1  # Use the ref you want to point at
+  hooks:
+    - id: trailing-whitespace
+    - id: check-ast
+    - id: check-byte-order-marker
+    - id: check-case-conflict
+    - id: check-docstring-first
+    - id: check-merge-conflict
+    - id: check-symlinks
+    - id: debug-statements
+    - id: end-of-file-fixer
+    - id: fix-encoding-pragma
+      args: ['--remove']
+    - id: mixed-line-ending
+      args: ['--fix=lf']
+    - id: flake8

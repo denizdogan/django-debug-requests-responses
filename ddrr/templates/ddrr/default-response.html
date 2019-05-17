@@ -1,0 +1,4 @@
+DDRResponse: {{ ddrr.status_code }} {{ ddrr.reason_phrase }}
+{% for header, value in ddrr.headers.items %}{{ header }}: {{ value }}
+{% endfor %}
+{{ ddrr.content|default:"<empty body>" }}
