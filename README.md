@@ -19,37 +19,22 @@ $ pip install ddrr
 1. Add `ddrr` to your `INSTALLED_APPS`:
 
     ```python
+    # in settings.py
     INSTALLED_APPS = (
         # ...
         "ddrr",
     )
     ```
 
-2. Add the required middleware (nothing will work without this):
+1. Configure the logging of your Django app to use DDRR:
 
     ```python
-    MIDDLEWARE = (
-        "ddrr.middleware.DebugRequestsResponses",
-        # ...
-    )
+    # in settings.py
+    import ddrr
+    ddrr.quick_setup()
     ```
 
-    It's important that `DebugRequestsResponses` is the first one in the list.
-
-3. Configure the logging of your Django app to use DDRR:
-
-    ```python
-    LOGGING = {
-        # ...configure as you wish...
-    }
-    from ddrr import quick_setup
-    quick_setup()
-    ```
-
-    The `quick_setup` call sets up the default logging configuration which is
-    enough for most projects.
-
-4. **Done!**
+1. **Done!**
 
 ## Customization
 

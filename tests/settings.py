@@ -10,8 +10,6 @@ TEMPLATES = [
     {"BACKEND": "django.template.backends.django.DjangoTemplates", "APP_DIRS": True}
 ]
 
-# MIDDLEWARE = ("ddrr.middleware.DebugRequestsResponses",)
-
 LOGGING = {"version": 1}
 
 ROOT_URLCONF = "tests.urls"
