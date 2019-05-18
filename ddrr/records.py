@@ -57,7 +57,8 @@ def pretty_print_xml(content):
     if not etree:
         return content
     try:
-        tree = etree.fromstring(content)
+        parser = etree.XMLParser(remove_blank_text=True)
+        tree = etree.fromstring(content, parser)
         return etree.tostring(tree, encoding=str, pretty_print=True)
     except XMLSyntaxError:
         return content
@@ -70,7 +71,7 @@ PRETTY_PRINTERS = OrderedDict(
 
 def pretty_print(content, content_type):
     for regex, handler in PRETTY_PRINTERS.items():
-        if re.match(regex, content_type):
+        if re.search(regex, content_type):
             return handler(content)
     return content
 
