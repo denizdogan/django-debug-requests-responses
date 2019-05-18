@@ -472,7 +472,7 @@ version = "0.12.2"
 category = "main"
 description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
 name = "lxml"
-optional = false
+optional = true
 python-versions = "*"
 version = "4.3.3"
 
@@ -979,8 +979,11 @@ optional = false
 python-versions = ">=2.7"
 version = "0.5.1"
 
+[extras]
+xml = ["lxml"]
+
 [metadata]
-content-hash = "698c483e8c2082b8f212ad90cc56744be6f57448c17039d5b5b875be0582dd78"
+content-hash = "a932de98dc9a4abfe2fdf296ebd4eb004051431a5ce079de141151203f478532"
 python-versions = "^2.7.9 || ^3.5"
 
 [metadata.hashes]
