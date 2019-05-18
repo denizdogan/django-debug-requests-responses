@@ -1,4 +1,4 @@
-DDRRequest: {{ ddrr.method }} {{ ddrr.path }}{{ ddrr.query_string }}
+Request: {{ ddrr.method }} {{ ddrr.path }}{{ ddrr.query_string }}
 {% for header, value in ddrr.headers.items %}{{ header }}: {{ value }}
 {% endfor %}
 {{ ddrr.body|default:"<empty body>" }}
