@@ -38,6 +38,13 @@ $ pip install ddrr
 
 ## Customization
 
+### Quick setup
+
+`ddrr.quick_setup` accepts the following optional arguments:
+
+- `enable_requests` - (default: True) Enable request logging.
+- `enable_responses` - (default: True) Enable response logging.
+
 ### Change output formats
 
 TODO
