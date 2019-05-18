@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ddrr"
-version = "0.1.1"
+version = "0.2.0"
 readme = "README.md"
 authors = ["Deniz Dogan <denizdogan@users.noreply.github.com>"]
 repository = "https://github.com/denizdogan/django-debug-requests-responses"
@@ -37,9 +37,9 @@ tox = "^3.9"
 [tool.poetry.extras]
 xml = ["lxml"]
 
+[tool.black]
+target-version = ["py35"]
+
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
-
-[tool.black]
-target-version = ["py35"]
