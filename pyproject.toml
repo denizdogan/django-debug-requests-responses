@@ -13,7 +13,7 @@ Django = [
     {version = "^1.11", python = "~2.7"},
     {version = "^2.0", python = "^3.5"},
 ]
-lxml = {version = "^4.3",extras = ["xml"]}
+lxml = {version = "^4.3",optional = true}
 python = "^2.7.9 || ^3.5"
 
 [tool.poetry.dev-dependencies]
@@ -33,6 +33,9 @@ pytest-django = "^3.4"
 pytest-mock = "^1.10"
 pytest-runner = "^4.4"
 tox = "^3.9"
+
+[tool.poetry.extras]
+xml = ["lxml"]
 
 [build-system]
 requires = ["poetry>=0.12"]
