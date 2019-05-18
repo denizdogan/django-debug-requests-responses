@@ -142,12 +142,16 @@ def merge(source, destination):
     return destination
 
 
-def quick_setup():
+def quick_setup(enable_requests=True, enable_responses=True):
     # set up logging
     merge(DEFAULT_LOGGING_CONFIG, settings.LOGGING)
     # set up middleware
     if "ddrr.middleware.DebugRequestsResponses" not in settings.MIDDLEWARE:
         settings.MIDDLEWARE.insert(0, "ddrr.middleware.DebugRequestsResponses")
+    if not enable_requests:
+        del settings.LOGGING["loggers"]["ddrr-request-logger"]
+    if not enable_responses:
+        del settings.LOGGING["loggers"]["ddrr-response-logger"]
 
 
 def configure_requests(level=None, pretty=None, template=None, template_name=None):
