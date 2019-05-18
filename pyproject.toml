@@ -17,7 +17,7 @@ lxml = {version = "^4.3",extras = ["xml"]}
 python = "^2.7.9 || ^3.5"
 
 [tool.poetry.dev-dependencies]
-black = {version = "^18.3-alpha.0", allows-prereleases = true, python = "^3.6"}
+black = {version = "^19.3b0", allows-prereleases = true, python = "^3.6"}
 faker = "^1.0"
 faker_web = "^0.3.1"
 flake8 = "^3.7"
