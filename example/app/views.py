@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.shortcuts import render
 
 
@@ -24,12 +24,15 @@ def ugly_xml(request):
 
 
 def ugly_json(request):
-    return JsonResponse(
+    return HttpResponse(
+        """
         {
-            "message": {
-                "from": "John Doe",
-                "to": "Jane",
-                "body": "God I wish we had a pretty printer...",
-            }
+         "message": {
+                    "from": "John Doe",
+            "to": "Jane",
+                    "body": "God I wish we had a pretty printer..."
+                }
         }
+        """,
+        content_type="application/json",
     )
