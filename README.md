@@ -34,6 +34,9 @@ $ pip install ddrr
     ddrr.quick_setup()
     ```
 
+    Note: If you have any `LOGGING` configuration, put it before `quick_setup`,
+    otherwise you will override the DDRR configuration!
+
 1. **Done!**
 
 ## Customization
