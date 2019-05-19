@@ -5,12 +5,12 @@ DEFAULT_LOGGING_CONFIG = {
     "version": 1,
     "formatters": {
         "ddrr-request-formatter": {
-            "()": "ddrr.formatters.DefaultRequestFormatter",
-            "pretty": True,
+            "()": "ddrr.formatters.DjangoTemplateRequestFormatter",
+            "template_name": "ddrr/default-request.html",
         },
         "ddrr-response-formatter": {
-            "()": "ddrr.formatters.DefaultResponseFormatter",
-            "pretty": True,
+            "()": "ddrr.formatters.DjangoTemplateResponseFormatter",
+            "template_name": "ddrr/default-response.html",
         },
     },
     "handlers": {
@@ -26,11 +26,8 @@ DEFAULT_LOGGING_CONFIG = {
         },
     },
     "loggers": {
-        "ddrr-request-logger": {"handlers": ["ddrr-request-handler"], "level": "DEBUG"},
-        "ddrr-response-logger": {
-            "handlers": ["ddrr-response-handler"],
-            "level": "DEBUG",
-        },
+        "ddrr-request-logger": {"handlers": ["ddrr-request-handler"]},
+        "ddrr-response-logger": {"handlers": ["ddrr-response-handler"]},
     },
 }
 
@@ -71,6 +68,7 @@ def meta_to_header(header):
 def collect_request_headers(request):
     """
     Given an HTTP request, return its headers as a dictionary.
+
     :param request: Request object
     :return: Dictionary of headers
     """
@@ -78,9 +76,9 @@ def collect_request_headers(request):
     if django.VERSION >= (2, 2):
         headers = dict(request.headers.items())
     else:
-        # older versions require you to jump through hoops... collect the META keys that
-        # start with HTTP_, strip HTTP_ and normalize the remainder to the common header
-        # format.
+        # older versions require you to jump through hoops... collect the
+        # META keys that start with HTTP_, strip HTTP_ and normalize the
+        # remainder to the common header format.
         headers = {
             (meta_to_header(header[5:])): value
             for header, value in request.META.items()
@@ -97,8 +95,8 @@ def collect_request_headers(request):
         if known_header:
             del headers[header]
             headers[known_header] = value
-    # sometimes Content-Length will be the empty string even though it was not sent by
-    # the client, so remove it.
+    # sometimes Content-Length will be the empty string even though it was
+    # not sent by the client, so remove it.
     if headers.get("Content-Length", "1") == "":
         del headers["Content-Length"]
     return headers
@@ -107,6 +105,7 @@ def collect_request_headers(request):
 def collect_response_headers(response):
     """
     Given an HTTP response, return its headers as a dictionary.
+
     :param response: Response object
     :return: Dictionary of headers
     """
@@ -142,30 +141,76 @@ def merge(source, destination):
     return destination
 
 
-def quick_setup(enable_requests=True, enable_responses=True):
+def quick_setup(
+    enable_requests=True,
+    enable_responses=True,
+    level="DEBUG",
+    pretty=False,
+    request_template_name=None,
+    request_template=None,
+    response_template_name=None,
+    response_template=None,
+):
+    """
+    Set up DDRR logging.
+
+    :param enable_requests: Enable request logging
+    :param enable_responses: Enable response logging
+    :param level: Log level
+    :param pretty: Pretty-print bodies
+    :param request_template_name: Request template name
+    :param request_template: Request template string
+    :param response_template_name: Response template name
+    :param response_template: Response template string
+    """
+    if request_template_name and request_template:
+        raise RuntimeError(
+            "use request_template_name or request_template, not both"
+        )
+    if response_template_name and response_template:
+        raise RuntimeError(
+            "use response_template_name or response_template, not both"
+        )
+
     # set up logging
     merge(DEFAULT_LOGGING_CONFIG, settings.LOGGING)
+
     # set up middleware
     if "ddrr.middleware.DebugRequestsResponses" not in settings.MIDDLEWARE:
         settings.MIDDLEWARE.insert(0, "ddrr.middleware.DebugRequestsResponses")
+
+    # set the logger levels
+    settings.LOGGING["loggers"]["ddrr-request-logger"]["level"] = level
+    settings.LOGGING["loggers"]["ddrr-response-logger"]["level"] = level
+
+    # set the pretty flag
+    settings.LOGGING["formatters"]["ddrr-request-formatter"]["pretty"] = pretty
+    settings.LOGGING["formatters"]["ddrr-response-formatter"][
+        "pretty"
+    ] = pretty
+
+    # set the templates or template names
+    merge(
+        request_template
+        and {"template": request_template, "template_name": None}
+        or request_template_name
+        and {"template_name": request_template_name, "template": None}
+        or {},
+        settings.LOGGING["formatters"]["ddrr-request-formatter"],
+    )
+    merge(
+        response_template
+        and {"template": response_template, "template_name": None}
+        or response_template_name
+        and {"template_name": response_template_name, "template": None}
+        or {},
+        settings.LOGGING["formatters"]["ddrr-response-formatter"],
+    )
+
+    # disable requests
     if not enable_requests:
         del settings.LOGGING["loggers"]["ddrr-request-logger"]
+
+    # disable responses
     if not enable_responses:
         del settings.LOGGING["loggers"]["ddrr-response-logger"]
-
-
-def configure_requests(level=None, pretty=None, template=None, template_name=None):
-    formatter = {}
-    logger = {}
-    if level:
-        logger["level"] = level
-    if template:
-        formatter["template"] = template
-    if template_name:
-        formatter["template_name"] = template_name
-    if pretty is not None:
-        formatter["pretty"] = pretty
-    merge(
-        {"ddrr-request-formatter": formatter, "ddrr-request-logger": logger},
-        settings.LOGGING,
-    )

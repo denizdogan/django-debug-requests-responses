@@ -69,4 +69,4 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 LOGGING = {}
-quick_setup()
+quick_setup(pretty=True)

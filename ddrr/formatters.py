@@ -8,9 +8,6 @@ from django.template.loader import get_template
 from ddrr.records import RequestLogRecord
 from ddrr.records import ResponseLogRecord
 
-DEFAULT_REQUEST_TEMPLATE = "ddrr/default-request.html"
-DEFAULT_RESPONSE_TEMPLATE = "ddrr/default-response.html"
-
 
 class DjangoTemplateRequestFormatter(logging.Formatter):
     # noinspection PyMissingConstructor
@@ -25,8 +22,8 @@ class DjangoTemplateRequestFormatter(logging.Formatter):
     ):
         if not template_name and not template:
             raise RuntimeError(
-                "DjangoTemplateRequestFormatter requires a template_name or template"
-                "setting"
+                "DjangoTemplateRequestFormatter requires a template_name or "
+                "template setting"
             )
         self._template_name = template_name
         self._template = template
@@ -37,8 +34,8 @@ class DjangoTemplateRequestFormatter(logging.Formatter):
     def template(self):
         # lazy loading of template to avoid AppRegistryNotReady
         return (
-            # circumvent autoescape being forced onto the template context by extracting
-            # the source and creating a separate Template object
+            # circumvent autoescape being forced onto the template context by
+            # extracting the source and creating a separate Template object
             Template(get_template(self._template_name).template.source)
             if self._template_name
             else Template(self._template)
@@ -47,14 +44,11 @@ class DjangoTemplateRequestFormatter(logging.Formatter):
     def format(self, record):
         ddrr = RequestLogRecord.make(record, self)
         ctx = RequestContext(
-            request=record.msg, dict_={"ddrr": ddrr, "record": record}, autoescape=False
+            request=record.msg,
+            dict_={"ddrr": ddrr, "record": record},
+            autoescape=False,
         )
         return self.template.render(ctx)
-
-
-class DefaultRequestFormatter(DjangoTemplateRequestFormatter):
-    def __init__(self, **kwargs):
-        super().__init__(template_name=DEFAULT_REQUEST_TEMPLATE, **kwargs)
 
 
 class DjangoTemplateResponseFormatter(logging.Formatter):
@@ -70,8 +64,8 @@ class DjangoTemplateResponseFormatter(logging.Formatter):
     ):
         if not template_name and not template:
             raise RuntimeError(
-                "DjangoTemplateResponseFormatter requires a template_name or template "
-                "setting"
+                "DjangoTemplateResponseFormatter requires a template_name or "
+                "template setting"
             )
         self._template_name = template_name
         self._template = template
@@ -82,8 +76,8 @@ class DjangoTemplateResponseFormatter(logging.Formatter):
     def template(self):
         # lazy loading of template to avoid AppRegistryNotReady
         return (
-            # circumvent autoescape being forced onto the template context by extracting
-            # the source and creating a separate Template object
+            # circumvent autoescape being forced onto the template context by
+            # extracting the source and creating a separate Template object
             Template(get_template(self._template_name).template.source)
             if self._template_name
             else Template(self._template)
@@ -93,8 +87,3 @@ class DjangoTemplateResponseFormatter(logging.Formatter):
         ddrr = ResponseLogRecord.make(record, self)
         ctx = Context(dict_={"ddrr": ddrr, "record": record}, autoescape=False)
         return self.template.render(ctx)
-
-
-class DefaultResponseFormatter(DjangoTemplateResponseFormatter):
-    def __init__(self, **kwargs):
-        super().__init__(template_name=DEFAULT_RESPONSE_TEMPLATE, **kwargs)

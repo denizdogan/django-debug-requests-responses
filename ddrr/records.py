@@ -1,7 +1,7 @@
 import json
 import re
+import textwrap
 from collections import OrderedDict
-from textwrap import shorten
 
 import attr
 from django.utils.functional import cached_property
@@ -94,7 +94,9 @@ class RequestLogRecord(object):
             content = pretty_print(content, self.content_type)
         # optionally limit output
         if self._formatter.limit_body:
-            content = shorten(content, self._formatter.limit_body, placeholder="...")
+            content = textwrap.shorten(
+                content, self._formatter.limit_body, placeholder="..."
+            )
         return content
 
     @cached_property
@@ -151,12 +153,10 @@ class ResponseLogRecord(object):
             content = pretty_print(content, self.content_type)
         # optionally limit output
         if self._formatter.limit_body:
-            content = shorten(content, self._formatter.limit_body, placeholder="...")
+            content = textwrap.shorten(
+                content, self._formatter.limit_body, placeholder="..."
+            )
         return content
-
-    @cached_property
-    def method(self):
-        return self.response.method
 
     @cached_property
     def content_type(self):

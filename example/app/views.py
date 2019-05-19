@@ -1,8 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse("Welcome!")
+    return render(request, "app/index.html")
 
 
 def unauthorized(request):
@@ -19,4 +20,16 @@ def ugly_xml(request):
     </body></message>
     """,
         content_type="text/xml",
+    )
+
+
+def ugly_json(request):
+    return JsonResponse(
+        {
+            "message": {
+                "from": "John Doe",
+                "to": "Jane",
+                "body": "God I wish we had a pretty printer...",
+            }
+        }
     )
