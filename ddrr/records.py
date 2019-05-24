@@ -6,8 +6,7 @@ from collections import OrderedDict
 import attr
 from django.utils.functional import cached_property
 
-from ddrr.utils import collect_request_headers
-from ddrr.utils import collect_response_headers
+from ddrr.helpers import collect_request_headers
 
 try:
     from lxml import etree
@@ -135,7 +134,7 @@ class ResponseLogRecord(object):
 
     @cached_property
     def headers(self):
-        return collect_response_headers(self.response)
+        return dict(self.response.items())
 
     @cached_property
     def reason_phrase(self):

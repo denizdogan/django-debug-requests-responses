@@ -1,7 +1,4 @@
-from django.http import HttpResponse
-
-from ddrr.utils import collect_request_headers
-from ddrr.utils import collect_response_headers
+from ddrr.helpers import collect_request_headers
 from tests.utils import fake
 
 
@@ -35,18 +32,3 @@ def test_collect_request_headers_drops_empty_content_length(rf):
     request = rf.get("/", CONTENT_LENGTH="")
     headers = collect_request_headers(request)
     assert dict(headers) == {"Cookie": ""}
-
-
-def test_collect_response_headers(rf):
-    """
-    collect_response_headers does not modify header format.
-    """
-    response = HttpResponse("content")
-    response["Foo-Bar"] = "foobar"
-    response["FOO_BAR"] = "barbaz"
-    headers = collect_response_headers(response)
-    assert headers == {
-        "Content-Type": "text/html; charset=utf-8",  # added automatically
-        "Foo-Bar": "foobar",
-        "FOO_BAR": "barbaz",
-    }
