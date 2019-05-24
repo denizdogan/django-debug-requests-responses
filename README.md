@@ -3,10 +3,12 @@
 Get more out of your `runserver` development output! Print request and response
 headers, body (with pretty-printing), etc.  Highly customizable!
 
-- Log request headers
-- Log request body
-- Pretty-print JSON request and response bodies
-- ...and more!
+- Full request headers
+- The entire request body
+- Pretty-printing optional
+- Colored output
+- Super easy setup
+- No extra dependencies
 
 DDRR can also be used for general logging with some configuration of your own.
 
@@ -30,15 +32,6 @@ ddrr.quick_setup()
 Note: If you have any `LOGGING` configuration, put it before `quick_setup`,
 otherwise you will override the DDRR configuration!
 
-## How it works
-
-The middleware `ddrr.middleware.DebugRequestsResponses` sends the entire
-request object as the message to `ddrr-request-logger`.  This logger has been
-configured to use `ddrr.formatters.DjangoTemplateRequestFormatter` which
-internally uses Django's built-in template engine to format the request into
-human-readable form. By default, this is shown in your console output, but you
-can easily configure it to log it to a file, ElasticSearch, or anything else.
-
 ## Customization
 
 `ddrr.quick_setup` accepts the following optional arguments:
@@ -51,6 +44,8 @@ can easily configure it to log it to a file, ElasticSearch, or anything else.
 - `request_template_name` - (default: None) Request template name
 - `response_template` - (default: None) Response template string
 - `response_template_name` - (default: None) Response template name
+- `limit_body` - (default: None) Limit request and response body length
+- `colors` - (default: True) Enable color support if terminal supports it
 
 ### Change output formats
 
@@ -64,6 +59,7 @@ template context with access to pretty much anything you could be interested in.
 - **Request template context:**
   - `ddrr.body` - request body
   - `ddrr.content_type` - request content type
+  - `ddrr.formatter` - the formatter
   - `ddrr.headers` - mapping of header fields and values
   - `ddrr.method` - request method
   - `ddrr.path` - request path
@@ -74,6 +70,7 @@ template context with access to pretty much anything you could be interested in.
 - **Response template context:**
   - `ddrr.content` - response content
   - `ddrr.content_type` - response content type
+  - `ddrr.formatter` - the formatter
   - `ddrr.headers` - mapping of header fields and values
   - `ddrr.reason_phrase` - response reason phrase
   - `ddrr.record` - the actual log record object
@@ -91,6 +88,15 @@ ddrr.quick_setup(
                       "{{ ddrr.content }}",
 )
 ```
+
+## How it works internally
+
+The middleware `ddrr.middleware.DebugRequestsResponses` sends the entire
+request object as the message to `ddrr-request-logger`.  This logger has been
+configured to use `ddrr.formatters.DjangoTemplateRequestFormatter` which
+internally uses Django's built-in template engine to format the request into
+human-readable form. By default, this is shown in your console output, but you
+can easily configure it to log it to a file, ElasticSearch, or anything else.
 
 ## Similar projects
 
