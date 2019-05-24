@@ -19,6 +19,7 @@ def quick_setup(
     response_template=None,
     request_handler=logging.StreamHandler(),
     response_handler=logging.StreamHandler(),
+    colors=True,
 ):
     """
     Set up DDRR logging.
@@ -33,6 +34,7 @@ def quick_setup(
     :param response_template: Response template string
     :param request_handler: Custom request handler
     :param response_handler: Custom response handler
+    :param colors: Use colors if available
     """
     # set up middleware
     if "ddrr.middleware.DebugRequestsResponses" not in settings.MIDDLEWARE:
@@ -53,7 +55,7 @@ def quick_setup(
         response_logger.disabled = False
 
     # set up request formatter
-    request_formatter_kwargs = {"pretty": pretty}
+    request_formatter_kwargs = {"pretty": pretty, "colors": colors}
     if request_template:
         request_formatter_kwargs["template"] = request_template
     else:
@@ -64,7 +66,7 @@ def quick_setup(
     request_handler.setFormatter(request_formatter)
 
     # set up response formatter
-    response_formatter_kwargs = {"pretty": pretty}
+    response_formatter_kwargs = {"pretty": pretty, "colors": colors}
     if response_template:
         response_formatter_kwargs["template"] = response_template
     else:

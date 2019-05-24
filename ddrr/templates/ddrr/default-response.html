@@ -1,4 +1,5 @@
-Response: {{ ddrr.status_code }} {{ ddrr.reason_phrase }}
+{% load ddrr %}
+{% if formatter.colors %}{{ 'Response:'|colorize:"red" }}{% else %}Response:{% endif %} {{ ddrr.status_code }} {{ ddrr.reason_phrase }}
 {% for header, value in ddrr.headers.items %}{{ header }}: {{ value }}
 {% endfor %}{% if ddrr.content %}
 {{ ddrr.content }}{% endif %}🔚

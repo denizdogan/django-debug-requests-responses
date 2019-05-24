@@ -1,5 +1,6 @@
 import logging
 
+from django.core.management.color import supports_color
 from django.template import Context
 from django.template import RequestContext
 from django.template import Template
@@ -18,7 +19,7 @@ class DjangoTemplateRequestFormatter(logging.Formatter):
         template=None,
         pretty=False,
         limit_body=None,
-        **kwargs
+        colors=True
     ):
         if not template_name and not template:
             raise RuntimeError(
@@ -29,6 +30,7 @@ class DjangoTemplateRequestFormatter(logging.Formatter):
         self._template = template
         self.pretty = pretty
         self.limit_body = limit_body
+        self.colors = colors and supports_color()
 
     @property
     def template(self):
@@ -45,7 +47,7 @@ class DjangoTemplateRequestFormatter(logging.Formatter):
         ddrr = RequestLogRecord.make(record, self)
         ctx = RequestContext(
             request=record.msg,
-            dict_={"ddrr": ddrr, "record": record},
+            dict_={"ddrr": ddrr, "record": record, "formatter": self},
             autoescape=False,
         )
         return self.template.render(ctx)
@@ -60,7 +62,7 @@ class DjangoTemplateResponseFormatter(logging.Formatter):
         template=None,
         pretty=False,
         limit_body=None,
-        **kwargs
+        colors=True
     ):
         if not template_name and not template:
             raise RuntimeError(
@@ -71,6 +73,7 @@ class DjangoTemplateResponseFormatter(logging.Formatter):
         self._template = template
         self.pretty = pretty
         self.limit_body = limit_body
+        self.colors = colors and supports_color()
 
     @property
     def template(self):
@@ -85,5 +88,8 @@ class DjangoTemplateResponseFormatter(logging.Formatter):
 
     def format(self, record):
         ddrr = ResponseLogRecord.make(record, self)
-        ctx = Context(dict_={"ddrr": ddrr, "record": record}, autoescape=False)
+        ctx = Context(
+            dict_={"ddrr": ddrr, "record": record, "formatter": self},
+            autoescape=False,
+        )
         return self.template.render(ctx)
