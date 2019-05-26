@@ -29,10 +29,12 @@ import ddrr
 ddrr.quick_setup()
 ```
 
-Note: If you have any `LOGGING` configuration, put it before `quick_setup`,
-otherwise you will override the DDRR configuration!
+**Done!** When you run `runserver`, you'll now get the entire HTTP requests and
+responses, including headers and bodies.
 
-## Customization
+If you don't like the default output format, read on...
+
+### Customization
 
 `ddrr.quick_setup` accepts the following optional arguments:
 
@@ -89,7 +91,7 @@ ddrr.quick_setup(
 )
 ```
 
-## How it works internally
+### How it works internally
 
 The middleware `ddrr.middleware.DebugRequestsResponses` sends the entire
 request object as the message to `ddrr-request-logger`.  This logger has been
