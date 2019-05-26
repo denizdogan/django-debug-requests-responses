@@ -68,4 +68,4 @@ USE_L10N = True
 USE_TZ = True
 STATIC_URL = "/static/"
 
-quick_setup(pretty=True, limit_body=13)
+quick_setup(pretty=True)

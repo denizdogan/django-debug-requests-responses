@@ -98,8 +98,9 @@ enable it.
 
 Pretty-printing of JSON requires not external dependency.
 
-Pretty-printing of XML requires that `lxml` is installed. When installing DDRR,
-use `pip install ddrr[xml]` to include `lxml`.
+Pretty-printing of XML uses `minidom` by default and doesn't require any extra
+dependency. If you want to use `lxml` instead, which is slightly better at
+pretty-printing XML, you can install that using `pip install ddrr[xml]`.
 
 ### How it works internally
 

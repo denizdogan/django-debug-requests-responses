@@ -2,6 +2,7 @@ import json
 import re
 import textwrap
 from collections import OrderedDict
+from xml.dom import minidom
 
 import attr
 from django.utils.functional import cached_property
@@ -53,13 +54,17 @@ def pretty_print_xml(content):
     :param content: XML string
     :return: Pretty-printed XML string
     """
-    if not etree:
-        return content
+    if etree:
+        try:
+            parser = etree.XMLParser(remove_blank_text=True)
+            tree = etree.fromstring(content, parser)
+            return etree.tostring(tree, encoding=str, pretty_print=True)
+        except XMLSyntaxError:
+            return content
+    # noinspection PyBroadException
     try:
-        parser = etree.XMLParser(remove_blank_text=True)
-        tree = etree.fromstring(content, parser)
-        return etree.tostring(tree, encoding=str, pretty_print=True)
-    except XMLSyntaxError:
+        return minidom.parseString(content).toprettyxml(indent="  ")
+    except Exception:
         return content
 
 
