@@ -1,5 +1,9 @@
 # Change log
 
+## May 26, 2019 - 0.3.1
+
+- Use `minidom` as fallback for XML pretty-printing
+
 ## May 25, 2019 - 0.3.0
 
 - Add `colors` option
