@@ -91,6 +91,16 @@ ddrr.quick_setup(
 )
 ```
 
+### Pretty-printing
+
+By default, pretty-printing is disabled. Pass `pretty=True` to `quick_setup` to
+enable it.
+
+Pretty-printing of JSON requires not external dependency.
+
+Pretty-printing of XML requires that `lxml` is installed. When installing DDRR,
+use `pip install ddrr[xml]` to include `lxml`.
+
 ### How it works internally
 
 The middleware `ddrr.middleware.DebugRequestsResponses` sends the entire
