@@ -2,7 +2,7 @@ from ddrr.loggers import request_logger
 from ddrr.loggers import response_logger
 
 
-class DebugRequestsResponses(object):
+class DebugRequestsResponses:
     def __init__(self, get_response):
         self.get_response = get_response
 

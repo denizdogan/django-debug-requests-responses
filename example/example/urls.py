@@ -1,6 +1,6 @@
 from app.views import index
-from app.views import ugly_xml
 from app.views import ugly_json
+from app.views import ugly_xml
 from app.views import unauthorized
 from django.urls import path
 

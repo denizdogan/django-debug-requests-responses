@@ -81,7 +81,7 @@ def pretty_print(content, content_type):
 
 
 @attr.s
-class RequestLogRecord(object):
+class RequestLogRecord:
     record = attr.ib()
     request = attr.ib()
     _formatter = attr.ib()
@@ -132,7 +132,7 @@ class RequestLogRecord(object):
 
 
 @attr.s
-class ResponseLogRecord(object):
+class ResponseLogRecord:
     record = attr.ib()
     response = attr.ib()
     _formatter = attr.ib()
