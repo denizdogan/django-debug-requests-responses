@@ -1,5 +1,7 @@
 # Django Debug Requests & Responses (DDRR)
 
+[![CircleCI](https://circleci.com/gh/denizdogan/django-debug-requests-responses/tree/master.svg?style=svg)](https://circleci.com/gh/denizdogan/django-debug-requests-responses/tree/master)
+
 Get more out of your `runserver` development output! Print request and response
 headers, body (with pretty-printing), etc.  Highly customizable!
 
