@@ -29,7 +29,7 @@ responses, including headers and bodies.
 
 If you don't like the default output format, read on...
 
-### Customization
+## Customization
 
 ```python
 DDRR = {
@@ -97,7 +97,7 @@ Pretty-printing of XML uses `minidom` by default and doesn't require any extra
 dependency. If you want to use `lxml` instead, which is slightly better at
 pretty-printing XML, you can install that using `pip install ddrr[xml]`.
 
-### How it works internally
+## How it works internally
 
 The middleware `ddrr.middleware.DebugRequestsResponses` sends the entire
 request object as the message to `ddrr-request-logger`.  This logger has been
