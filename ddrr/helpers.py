@@ -1,43 +1,5 @@
 import django
 
-
-def collect_request_headers(request):
-    """
-    Given an HTTP request, return its headers as a dictionary.
-
-    :param request: Request object
-    :return: Dictionary of headers
-    """
-    # django 2.2 provides headers already formatted
-    if django.VERSION >= (2, 2):
-        headers = dict(request.headers.items())
-    else:
-        # older versions require you to jump through hoops... collect the
-        # META keys that start with HTTP_, strip HTTP_ and normalize the
-        # remainder to the common header format.
-        headers = {
-            (meta_to_header(header[5:])): value
-            for header, value in request.META.items()
-            if header.startswith("HTTP_")
-        }
-        # Content-Type and Content-Length don't appear as HTTP_
-        if "CONTENT_TYPE" in request.META:
-            headers["Content-Type"] = request.META["CONTENT_TYPE"]
-        if "CONTENT_LENGTH" in request.META:
-            headers["Content-Length"] = request.META["CONTENT_LENGTH"]
-    # replace e.g. Www-Authenticate with WWW-Authenticate, etc.
-    for header, value in headers.items():
-        known_header = KNOWN_HEADERS.get(header.lower())
-        if known_header:
-            del headers[header]
-            headers[known_header] = value
-    # sometimes Content-Length will be the empty string even though it was
-    # not sent by the client, so remove it.
-    if headers.get("Content-Length", "1") == "":
-        del headers["Content-Length"]
-    return headers
-
-
 KNOWN_HEADERS = {
     "content-md5": "Content-MD5",
     "dnt": "DNT",
@@ -72,30 +34,41 @@ def meta_to_header(header):
     return "-".join(part.capitalize() for part in header.split("_"))
 
 
-def merge(source, destination):
+def collect_request_headers(request):
     """
-    Destructively and recursively merge two dictionaries. Return the result.
-    Copied from https://stackoverflow.com/a/20666342.
+    Given an HTTP request, return its headers as a dictionary.
 
-    >>> merge({'a': 1, 'b': 2}, {'c': 3}) == {'a': 1, 'b': 2, 'c': 3}
-    True
-    >>> merge({'a': {'b': 1}}, {'c': 2}) == {'a': {'b': 1}, 'c': 2}
-    True
-    >>> merge({'a': {'b': 1}}, {}) == {'a': {'b': 1}}
-    True
-    >>> merge({'a': {'b': 1}}, {'a': {'b': 2}}) == {'a': {'b': 1}}
-    True
-    >>> merge({'a': 1}, {'a': {'b': 2}}) == {'a': 1}
-    True
-
-    :param source: Source dictionary
-    :param destination: Destination dictionary
-    :returns: The destination dictionary
+    :param request: Request object
+    :return: Dictionary of headers
     """
-    for key, value in source.items():
-        if isinstance(value, dict):
-            node = destination.setdefault(key, {})
-            merge(value, node)
-        else:
-            destination[key] = value
-    return destination
+    # django 2.2 provides headers already formatted
+    if django.VERSION >= (2, 2):
+        headers = dict(request.headers.items())
+    else:
+        # older versions require you to jump through hoops... collect the
+        # META keys that start with HTTP_, strip HTTP_ and normalize the
+        # remainder to the common header format.
+        headers = {
+            (meta_to_header(header[5:])): value
+            for header, value in request.META.items()
+            if header.startswith("HTTP_")
+        }
+        # Content-Type and Content-Length don't appear as HTTP_
+        if "CONTENT_TYPE" in request.META:
+            headers["Content-Type"] = request.META["CONTENT_TYPE"]
+        if "CONTENT_LENGTH" in request.META:
+            headers["Content-Length"] = request.META["CONTENT_LENGTH"]
+
+    # replace e.g. Www-Authenticate with WWW-Authenticate, etc.
+    for header, value in headers.items():
+        known_header = KNOWN_HEADERS.get(header.lower())
+        if known_header:
+            del headers[header]
+            headers[known_header] = value
+
+    # sometimes Content-Length will be the empty string even though it was
+    # not sent by the client, so remove it.
+    if headers.get("Content-Length", "1") == "":
+        del headers["Content-Length"]
+
+    return headers

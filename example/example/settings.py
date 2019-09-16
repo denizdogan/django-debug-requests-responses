@@ -1,8 +1,6 @@
 import os
 import sys
 
-from ddrr import quick_setup
-
 sys.path += ".."  # only to access "ddrr"
 
 DEBUG = True
@@ -25,6 +23,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "ddrr.middleware.DebugRequestsResponses",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -68,4 +67,4 @@ USE_L10N = True
 USE_TZ = True
 STATIC_URL = "/static/"
 
-quick_setup(pretty=True)
+DDRR = {"PRETTY_PRINT": True}

@@ -1,5 +1,3 @@
-import ddrr
-
 DEBUG = True
 
 SECRET_KEY = "ddrr"
@@ -15,4 +13,4 @@ TEMPLATES = [
 
 ROOT_URLCONF = "tests.urls"
 
-ddrr.quick_setup()
+MIDDLEWARE = ("ddrr.middleware.DebugRequestsResponses",)

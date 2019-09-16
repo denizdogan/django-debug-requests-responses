@@ -1,5 +1,11 @@
 # Change log
 
+## September 26, 2019 - 1.0.0
+
+- Replace `quick_setup` with Django settings
+- Don't implicitly set up the middleware
+- Drop support for Django 1.x and Python 2.x
+
 ## May 26, 2019 - 0.3.1
 
 - Use `minidom` as fallback for XML pretty-printing

@@ -1,38 +1,35 @@
 [tool.poetry]
 name = "ddrr"
-version = "0.3.1"
+version = "1.0.0"
 readme = "README.md"
 authors = ["Deniz Dogan <denizdogan@users.noreply.github.com>"]
 repository = "https://github.com/denizdogan/django-debug-requests-responses"
 homepage = "https://github.com/denizdogan/django-debug-requests-responses"
-keywords = ["django", "debug", "requests", "responses"]
+keywords = ["django", "debug", "requests", "responses", "logging"]
 
 [tool.poetry.dependencies]
 attrs = "^19.1"
-Django = [
-    {version = "^1.11", python = "~2.7"},
-    {version = "^2.0", python = "^3.5"},
-]
-lxml = {version = "^4.3",optional = true}
-python = "^2.7.9 || ^3.5"
+Django = "^2.0"
+python = "^3.5"
+lxml = {version = "^4.3", optional = true}
 
 [tool.poetry.dev-dependencies]
 black = {version = "^19.3b0", allows-prereleases = true, python = "^3.6"}
-faker = "^1.0"
+faker = "^2.0.1"
 faker_web = "^0.3.1"
 flake8 = "^3.7"
-flake8-black = {version="^0.0.4", python = "^3.6"}
+flake8-black = {version="^0.1.1", python = "^3.6"}
 flake8-bugbear = { version = "^19.3", python = "^3.5"}
 flake8-isort = "^2.7"
 isort = "^4.3"
-poetry = "^0.12.15"
+poetry = "^0.12.17"
 pre-commit = "^1.16"
-pytest = "^4.5"
-pytest-cov = "^2.7"
-pytest-django = "^3.4"
+pytest = "^5.1.2"
+pytest-cov = "^2.7.1"
+pytest-django = "^3.5.1"
 pytest-mock = "^1.10"
-pytest-runner = "^4.4"
-tox = "^3.9"
+pytest-runner = "^5.1"
+tox = "^3.14.0"
 
 [tool.poetry.extras]
 xml = ["lxml"]

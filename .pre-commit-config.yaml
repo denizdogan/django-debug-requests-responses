@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/asottile/seed-isort-config
-    rev: v1.9.1
+    rev: v1.9.2
     hooks:
       - id: seed-isort-config
   - repo: https://github.com/pre-commit/mirrors-isort
@@ -8,7 +8,7 @@ repos:
     hooks:
       - id: isort
   - repo: https://github.com/asottile/pyupgrade
-    rev: v1.21.0
+    rev: v1.23.0
     hooks:
       - id: pyupgrade
         args: ['--py3-plus']
@@ -18,7 +18,7 @@ repos:
       - id: black
         target_version: python3.5
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.2.1  # Use the ref you want to point at
+    rev: v2.3.0  # Use the ref you want to point at
     hooks:
       - id: trailing-whitespace
       - id: check-ast

@@ -14,20 +14,13 @@ DDRR can also be used for general logging with some configuration of your own.
 
 ## Installation
 
-```
-$ pip install ddrr
-```
+1. ```
+   $ pip install ddrr
+   ```
 
-```python
-# in settings.py
-INSTALLED_APPS = (
-    # ...
-    "ddrr",
-)
+2. Add `"ddrr"` to `INSTALLED_APPS`
 
-import ddrr
-ddrr.quick_setup()
-```
+3. Insert `"ddrr.middleware.DebugRequestsResponses"` first in `MIDDLEWARE`
 
 **Done!** When you run `runserver`, you'll now get the entire HTTP requests and
 responses, including headers and bodies.
@@ -36,27 +29,26 @@ If you don't like the default output format, read on...
 
 ### Customization
 
-`ddrr.quick_setup` accepts the following optional arguments:
+```python
+DDRR = {
+    "ENABLE_REQUESTS": True,  # enable request logging
+    "ENABLE_RESPONSES": True,  # enable response logging
+    "LEVEL": "DEBUG",  # ddrr log level
+    "PRETTY_PRINT": False,  # pretty-print JSON and XML
+    "REQUEST_TEMPLATE_NAME": "ddrr/default-request.html",  # request log template name
+    "REQUEST_TEMPLATE": None,  # request log template string (overrides template name)
+    "RESPONSE_TEMPLATE_NAME": "ddrr/default-response.html",  # response log template name
+    "RESPONSE_TEMPLATE": None,  # response log template string (overrides template name)
+    "REQUEST_HANDLER": logging.StreamHandler(),  # request log handler
+    "RESPONSE_HANDLER": logging.StreamHandler(),  # response log handler
+    "ENABLE_COLORS": True,  # enable colors if terminal supports it
+    "LIMIT_BODY": None,  # limit request/response body output to X chars
+}
+```
 
-- `enable_requests` - (default: True) Enable request logging.
-- `enable_responses` - (default: True) Enable response logging.
-- `level` - (default: DEBUG) The level of the log messages.
-- `pretty` - (default: False) Enable pretty-printing of bodies.
-- `request_template` - (default: None) Request template string
-- `request_template_name` - (default: None) Request template name
-- `response_template` - (default: None) Response template string
-- `response_template_name` - (default: None) Response template name
-- `limit_body` - (default: None) Limit request and response body length
-- `colors` - (default: True) Enable color support if terminal supports it
+### Template contexts
 
-### Change output formats
-
-You can pass `request_template` or `request_template_name` to `quick_setup` to
-define a different output format for request logs. The same goes for responses,
-use `response_template` or `response_template_name`.
-
-The templates are normal Django templates which are passed the necessary
-template context with access to pretty much anything you could be interested in.
+If you want to customize request or response templates, you can use the following values:
 
 - **Request template context:**
   - `ddrr.body` - request body
@@ -83,20 +75,20 @@ For example, this will log the method, path and body of each request, as well
 as the status code, reason phrase and content of each response:
 
 ```python
-ddrr.quick_setup(
-    request_template="{{ ddrr.method }} {{ ddrr.path }}\n"
-                     "{{ ddrr.body }}",
-    response_template="{{ ddrr.status_code }} {{ ddrr.reason_phrase }}\n"
-                      "{{ ddrr.content }}",
-)
+DDRR = {
+    "REQUEST_TEMPLATE": "{{ ddrr.method }} {{ ddrr.path }}\n"
+                        "{{ ddrr.body }}",
+    "RESPONSE_TEMPLATE": "{{ ddrr.status_code }} {{ ddrr.reason_phrase }}\n"
+                         "{{ ddrr.content }}",
+}
 ```
 
 ### Pretty-printing
 
-By default, pretty-printing is disabled. Pass `pretty=True` to `quick_setup` to
-enable it.
+By default, pretty-printing is disabled.  Set `DDRR["PRETTY_PRINT"]` to `True`
+to enable it.
 
-Pretty-printing of JSON requires not external dependency.
+Pretty-printing of JSON requires no external dependency.
 
 Pretty-printing of XML uses `minidom` by default and doesn't require any extra
 dependency. If you want to use `lxml` instead, which is slightly better at
@@ -109,7 +101,7 @@ request object as the message to `ddrr-request-logger`.  This logger has been
 configured to use `ddrr.formatters.DjangoTemplateRequestFormatter` which
 internally uses Django's built-in template engine to format the request into
 human-readable form. By default, this is shown in your console output, but you
-can easily configure it to log it to a file, ElasticSearch, or anything else.
+can easily configure it to log it to a file, Logstash, or anything else.
 
 ## Similar projects
 
