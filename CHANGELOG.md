@@ -1,5 +1,10 @@
 # Change log
 
+## September 26, 2019 - 1.1.0
+
+- Handle UnicodeDecodeError if body is not UTF-8 decodable
+- Add option to disable runserver's default logging
+
 ## September 26, 2019 - 1.0.0
 
 - Replace `quick_setup` with Django settings
