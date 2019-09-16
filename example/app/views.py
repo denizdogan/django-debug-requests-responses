@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -36,3 +38,8 @@ def ugly_json(request):
         """,
         content_type="application/json",
     )
+
+
+def pdf_file(request):
+    content = (Path(__file__).resolve().parent / "pdf.pdf").read_bytes()
+    return HttpResponse(content, content_type="application/pdf")

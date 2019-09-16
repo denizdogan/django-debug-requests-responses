@@ -92,7 +92,10 @@ class RequestLogRecord:
 
     @cached_property
     def body(self):
-        content = self.request.body.decode("utf-8")
+        try:
+            content = self.request.body.decode("utf-8")
+        except UnicodeDecodeError:
+            content = str(self.request.body)
         # optionally pretty print
         if self._formatter.pretty:
             content = pretty_print(content, self.content_type)
@@ -151,7 +154,10 @@ class ResponseLogRecord:
 
     @cached_property
     def content(self):
-        content = self.response.content.decode("utf-8")
+        try:
+            content = self.response.content.decode("utf-8")
+        except UnicodeDecodeError:
+            content = str(self.response.content)
         # optionally pretty print
         if self._formatter.pretty:
             content = pretty_print(content, self.content_type)
