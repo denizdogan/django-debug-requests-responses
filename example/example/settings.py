@@ -67,4 +67,4 @@ USE_L10N = True
 USE_TZ = True
 STATIC_URL = "/static/"
 
-DDRR = {"PRETTY_PRINT": True}
+DDRR = {"PRETTY_PRINT": True, "DISABLE_DJANGO_SERVER_LOG": True}

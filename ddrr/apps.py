@@ -42,6 +42,7 @@ class DDRRConfig(AppConfig):
         response_handler = s("RESPONSE_HANDLER", logging.StreamHandler())
         colors = s("ENABLE_COLORS", True)
         limit_body = s("LIMIT_BODY", None)
+        disable_django_server_log = s("DISABLE_DJANGO_SERVER_LOG", False)
 
         # set up request logger and handler
         request_handler.setLevel(level)
@@ -86,3 +87,7 @@ class DDRRConfig(AppConfig):
             **response_formatter_kwargs
         )
         response_handler.setFormatter(response_formatter)
+
+        # disable django server log
+        if disable_django_server_log:
+            logging.getLogger("django.server").disabled = True

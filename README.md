@@ -45,6 +45,7 @@ DDRR = {
     "RESPONSE_HANDLER": logging.StreamHandler(),  # response log handler
     "ENABLE_COLORS": True,  # enable colors if terminal supports it
     "LIMIT_BODY": None,  # limit request/response body output to X chars
+    "DISABLE_DJANGO_SERVER_LOG": False,  # disable default django server log
 }
 ```
 
