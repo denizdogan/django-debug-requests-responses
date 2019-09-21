@@ -1,5 +1,9 @@
 # Change log
 
+## September 21, 2019 - 1.2.0
+
+- Add support for streaming responses
+
 ## September 18, 2019 - 1.1.1
 
 - (Packaging) Add PyPI classifiers
