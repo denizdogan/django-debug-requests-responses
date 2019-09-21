@@ -43,7 +43,7 @@ tox = "^3.14.0"
 xml = ["lxml"]
 
 [tool.black]
-target-version = ['py34']
+target-version = ['py35', 'py36', 'py37', 'py38']
 line-length = 79
 
 [build-system]
