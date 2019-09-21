@@ -155,7 +155,10 @@ class ResponseLogRecord:
     @cached_property
     def content(self):
         try:
-            content = self.response.content.decode("utf-8")
+            if self.response.streaming:
+                content = "<streaming>"
+            else:
+                content = self.response.content.decode("utf-8")
         except UnicodeDecodeError:
             content = str(self.response.content)
         # optionally pretty print
