@@ -7,7 +7,7 @@ from xml.dom import minidom
 import attr
 from django.utils.functional import cached_property
 
-from ddrr.helpers import collect_request_headers
+from ddrr.utils import collect_request_headers
 
 try:
     from lxml import etree

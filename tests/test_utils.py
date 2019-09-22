@@ -1,4 +1,4 @@
-from ddrr.helpers import collect_request_headers
+from ddrr.utils import collect_request_headers
 from tests.utils import fake
 
 
