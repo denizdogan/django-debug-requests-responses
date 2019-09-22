@@ -30,7 +30,6 @@ flake8-black = {version="^0.1.1", python = "^3.6"}
 flake8-bugbear = { version = "^19.3", python = "^3.5"}
 flake8-isort = "^2.7"
 isort = "^4.3"
-poetry = "^0.12.17"
 pre-commit = "^1.16"
 pytest = "^5.1.2"
 pytest-cov = "^2.7.1"
