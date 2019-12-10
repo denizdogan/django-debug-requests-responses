@@ -89,7 +89,7 @@ class ResponseLogRecord:
         except UnicodeDecodeError:
             content = str(self.response.content)
         # optionally pretty print
-        if self._formatter.pretty:
+        if self.content_type and self._formatter.pretty:
             content = pretty_print(content, self.content_type)
         # optionally limit output
         if self._formatter.limit_body:
