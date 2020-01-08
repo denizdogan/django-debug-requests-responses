@@ -1,5 +1,14 @@
 # Change log
 
+## January 8, 2020 - 1.3.1
+
+- Fix crash when cleaning HTTP headers #4
+- Update pyproject.toml to work with newer Poetry
+
+## December 10, 2019 - 1.3.0
+
+- Fix crash when Content-Type doesn't exist
+
 ## September 21, 2019 - 1.2.0
 
 - Add support for streaming responses
