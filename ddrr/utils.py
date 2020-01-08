@@ -71,19 +71,24 @@ def collect_request_headers(request):
         if "CONTENT_LENGTH" in request.META:
             headers["Content-Length"] = request.META["CONTENT_LENGTH"]
 
+    out_headers = OrderedDict(headers)
     # replace e.g. Www-Authenticate with WWW-Authenticate, etc.
     for header, value in headers.items():
         known_header = KNOWN_HEADERS.get(header.lower())
         if known_header:
-            del headers[header]
-            headers[known_header] = value
+            # replace the header with the new header.  we do it this way to
+            # keep the order of the headers intact.
+            out_headers = OrderedDict(
+                (known_header, v) if header == k else (k, v)
+                for (k, v) in out_headers.items()
+            )
 
     # sometimes Content-Length will be the empty string even though it was
     # not sent by the client, so remove it.
-    if headers.get("Content-Length", "1") == "":
-        del headers["Content-Length"]
+    if out_headers.get("Content-Length") == "":
+        del out_headers["Content-Length"]
 
-    return headers
+    return out_headers
 
 
 def pretty_print_xml(content):
