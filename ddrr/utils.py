@@ -12,22 +12,97 @@ except ImportError:
     etree = None
     XMLSyntaxError = None
 
-KNOWN_HEADERS = {
-    "content-md5": "Content-MD5",
-    "dnt": "DNT",
-    "etag": "ETag",
-    "http2-settings": "HTTP2-Settings",
-    "im": "IM",
-    "p3p": "P3P",
-    "te": "TE",
-    "www-authenticate": "WWW-Authenticate",
-    "x-att-deviceid": "X-ATT-DeviceId",
-    "x-correlation-id": "X-Correlation-ID",
-    "x-request-id": "X-Request-ID",
-    "x-ua-compatible": "X-UA-Compatible",
-    "x-uidh": "X-UIDH",
-    "x-webkit-csp": "X-WebKit-CSP",
-    "x-xss-protection": "X-XSS-Protection",
+
+SPECIAL_HEADERS = {
+    header.lower(): header
+    for header in [
+        "A-IM",
+        "ALPN",
+        "AMP-Cache-Transform",
+        "ARC-Authentication-Results",
+        "ARC-Message-Signature",
+        "ARC-Seal",
+        "C-PEP-Info",
+        "C-PEP",
+        "Cal-Managed-ID",
+        "CalDAV-Timezones",
+        "CDN-Loop",
+        "Content-ID",
+        "Content-MD5",
+        "DASL",
+        "DAV",
+        "Differential-ID",
+        "Discarded-X400-IPMS-Extensions",
+        "Discarded-X400-MTS-Extensions",
+        "DKIM-Signature",
+        "DL-Expansion-History",
+        "DNT",
+        "EDIINT-Features",
+        "ETag",
+        "Expect-CT",
+        "HTTP2-Settings",
+        "IM",
+        "Include-Referred-Token-Binding-ID",
+        "Jabber-ID",
+        "List-ID",
+        "Message-ID",
+        "Message-ID",
+        "MIME-Version",
+        "MMHS-Acp127-Message-Identifier",
+        "MMHS-Authorizing-Users",
+        "MMHS-Codress-Message-Indicator",
+        "MMHS-Copy-Precedence",
+        "MMHS-Exempted-Address",
+        "MMHS-Extended-Authorisation-Info",
+        "MMHS-Handling-Instructions",
+        "MMHS-Message-Instructions",
+        "MMHS-Message-Type",
+        "MMHS-Originator-PLAD",
+        "MMHS-Originator-Reference",
+        "MMHS-Other-Recipients-Indicator-CC",
+        "MMHS-Other-Recipients-Indicator-To",
+        "MMHS-Primary-Precedence",
+        "MMHS-Subject-Indicator-Codes",
+        "MT-Priority",
+        "NNTP-Posting-Date",
+        "NNTP-Posting-Host",
+        "Optional-WWW-Authenticate",
+        "Original-Message-ID",
+        "OSCORE",
+        "P3P",
+        "PEP",
+        "PICS-Label",
+        "Received-SPF",
+        "Resent-Message-ID",
+        "SIO-Label-History",
+        "SIO-Label",
+        "SLUG",
+        "Status-URI",
+        "SubOK",
+        "TCN",
+        "TE",
+        "TLS-Report-Domain",
+        "TLS-Report-Submitter",
+        "TLS-Required",
+        "TTL",
+        "UA-Color",
+        "UA-Media",
+        "UA-Pixels",
+        "UA-Resolution",
+        "UA-Windowpixels",
+        "URI",
+        "VBR-Info",
+        "WWW-Authenticate",
+        "X-ATT-DeviceId",
+        "X-Correlation-ID",
+        "X-PGP-Sig",
+        "X-Request-ID" "X-Riferimento-Message-ID",
+        "X-UA-Compatible",
+        "X-UIDH",
+        "X-WebKit-CSP",
+        "X-XSS-Protection",
+        "X400-MTS-Identifier",
+    ]
 }
 
 
@@ -71,17 +146,11 @@ def collect_request_headers(request):
         if "CONTENT_LENGTH" in request.META:
             headers["Content-Length"] = request.META["CONTENT_LENGTH"]
 
-    out_headers = OrderedDict(headers)
+    out_headers = OrderedDict()
     # replace e.g. Www-Authenticate with WWW-Authenticate, etc.
     for header, value in headers.items():
-        known_header = KNOWN_HEADERS.get(header.lower())
-        if known_header:
-            # replace the header with the new header.  we do it this way to
-            # keep the order of the headers intact.
-            out_headers = OrderedDict(
-                (known_header, v) if header == k else (k, v)
-                for (k, v) in out_headers.items()
-            )
+        header = SPECIAL_HEADERS.get(header.lower(), header)
+        out_headers[header] = value
 
     # sometimes Content-Length will be the empty string even though it was
     # not sent by the client, so remove it.
