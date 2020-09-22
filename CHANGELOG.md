@@ -1,5 +1,11 @@
 # Change log
 
+## September 23, 2020 - 2.0.0
+
+- Officially support Django 3.x
+- Require Python 3.6+ (Django 3.x requires it)
+- No changes or bug fixes, that's about it
+
 ## January 8, 2020 - 1.3.1
 
 - Fix crash when cleaning HTTP headers #4
