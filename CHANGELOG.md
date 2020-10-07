@@ -1,5 +1,9 @@
 # Change log
 
+## October 7, 2020 - 2.0.1
+
+- Fix attrs dependency
+
 ## September 23, 2020 - 2.0.0
 
 - Officially support Django 3.x

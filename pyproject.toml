@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ddrr"
-version = "2.0.0"
+version = "2.0.1"
 description = "Print request and response headers, body (with pretty-printing), etc."
 readme = "README.md"
 authors = ["Deniz Dogan <denizdogan@users.noreply.github.com>"]
