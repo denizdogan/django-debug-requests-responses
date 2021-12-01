@@ -212,7 +212,10 @@ def pretty_print_json(content):
 
 
 PRETTY_PRINTERS = OrderedDict(
-    ((r"/json", pretty_print_json), (r"/xml", pretty_print_xml))
+    (
+        (r"/json", pretty_print_json),
+        (r"/xml", pretty_print_xml),
+    ),
 )
 
 

@@ -19,7 +19,7 @@ class DjangoTemplateRequestFormatter(logging.Formatter):
         template=None,
         pretty=False,
         limit_body=None,
-        colors=True
+        colors=True,
     ):
         if not template_name and not template:
             raise RuntimeError(
@@ -62,7 +62,7 @@ class DjangoTemplateResponseFormatter(logging.Formatter):
         template=None,
         pretty=False,
         limit_body=None,
-        colors=True
+        colors=True,
     ):
         if not template_name and not template:
             raise RuntimeError(

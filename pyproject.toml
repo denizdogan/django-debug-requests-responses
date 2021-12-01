@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ddrr"
-version = "2.0.1"
+version = "3.0.0"
 description = "Print request and response headers, body (with pretty-printing), etc."
 readme = "README.md"
 authors = ["Deniz Dogan <denizdogan@users.noreply.github.com>"]
@@ -17,35 +17,37 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
+Django = ">=2.2"
 attrs = ">=19.1"
-Django = ">=2.0"
-python = "^3.6"
-lxml = {version = "^4.3", optional = true}
+lxml = {version = "^4.6.3", optional = true}
+python = "^3.7"
 
 [tool.poetry.dev-dependencies]
-black = {version = "^20.8b1", allow-prereleases = true}
-faker = "^2.0.1"
+black = "^21.11b1"
+faker = "^9.8.4"
 faker_web = "^0.3.1"
-flake8 = "^3.7"
-flake8-black = {version="^0.1.1", python = "^3.6"}
-flake8-bugbear = { version = "^19.3", python = "^3.5"}
-flake8-isort = "^2.7"
-isort = "^4.3"
-pre-commit = "^1.16"
-pytest = "^5.1.2"
-pytest-cov = "^2.7.1"
-pytest-django = "^3.5.1"
-pytest-mock = "^1.10"
-pytest-runner = "^5.1"
-tox = "^3.14.0"
+flake8 = "^4.0.1"
+flake8-black = "^0.1.1"
+flake8-bugbear = "^21.11.29"
+flake8-isort = "^4.1.1"
+isort = "^5.10.1"
+pre-commit = "^2.16.0"
+pytest = "^6.2.5"
+pytest-django = "^4.4.0"
+pytest-mock = "^3.6.1"
+tox = "^3.24.4"
 
 [tool.poetry.extras]
 xml = ["lxml"]
 
 [tool.black]
-target-version = ['py36', 'py37', 'py38']
 line-length = 79
+target-version = ['py37', 'py38']
+
+[tool.isort]
+profile = "black"
+force_single_line = true
 
 [build-system]
-requires = ["poetry>=1.0.5"]
 build-backend = "poetry.masonry.api"
+requires = ["poetry>=1.0.5"]

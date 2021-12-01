@@ -1,5 +1,15 @@
 # Change log
 
+## December 1, - 3.0.0
+
+- Add Python 3.9 support
+- Drop Python 3.6 support
+- Drop Django < 2.2 support
+- Drop `default_app_config`
+- Lots of dependency updates
+- General clean-up
+- Switch CircleCI to GitHub Actions
+
 ## October 7, 2020 - 2.0.1
 
 - Fix attrs dependency
