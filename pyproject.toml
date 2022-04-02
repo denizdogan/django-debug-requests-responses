@@ -23,7 +23,7 @@ lxml = {version = "^4.6.3", optional = true}
 python = "^3.7"
 
 [tool.poetry.dev-dependencies]
-black = "^21.11b1"
+black = "^22"
 faker = "^9.8.4"
 faker_web = "^0.3.1"
 flake8 = "^4.0.1"
