@@ -50,7 +50,11 @@ class DjangoTemplateRequestFormatter(logging.Formatter):
             dict_={"ddrr": ddrr, "record": record, "formatter": self},
             autoescape=False,
         )
-        return self.template.render(ctx)
+        # noinspection PyBroadException
+        try:
+            return self.template.render(ctx)
+        except:  # noqa: E722
+            return "<template failed to render>"
 
 
 class DjangoTemplateResponseFormatter(logging.Formatter):
@@ -92,4 +96,8 @@ class DjangoTemplateResponseFormatter(logging.Formatter):
             dict_={"ddrr": ddrr, "record": record, "formatter": self},
             autoescape=False,
         )
-        return self.template.render(ctx)
+        # noinspection PyBroadException
+        try:
+            return self.template.render(ctx)
+        except:  # noqa: E722
+            return "<template failed to render>"
