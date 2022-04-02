@@ -1,32 +1,32 @@
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v2.3.0
+  rev: v4.1.0
   hooks:
   - id: check-yaml
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-  rev: v2.2.0
+  rev: v2.3.0
   hooks:
   - id: pretty-format-yaml
     args: [--autofix, --indent, '2']
 - repo: https://github.com/hadialqattan/pycln
-  rev: v1.1.0     # Possible releases: https://github.com/hadialqattan/pycln/releases
+  rev: v1.2.5     # Possible releases: https://github.com/hadialqattan/pycln/releases
   hooks:
   - id: pycln
     args: [--config=pyproject.toml]
 - repo: https://github.com/pycqa/isort
-  rev: 5.6.4
+  rev: 5.10.1
   hooks:
   - id: isort
     args: [--filter-files]
 - repo: https://github.com/asottile/pyupgrade
-  rev: v2.29.1
+  rev: v2.31.1
   hooks:
   - id: pyupgrade
     args: [--py37-plus]
 - repo: https://github.com/ambv/black
-  rev: 21.11b1
+  rev: 22.3.0
   hooks:
   - id: black
     language_version: python3.9
