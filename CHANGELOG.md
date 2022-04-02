@@ -1,6 +1,10 @@
 # Change log
 
-## December 1, - 3.0.0
+## April 3, 2022 - 3.1.0
+
+- Fix: The request could crash when the log record could not be formatted
+
+## December 1, 2021 - 3.0.0
 
 - Add Python 3.9 support
 - Drop Python 3.6 support
