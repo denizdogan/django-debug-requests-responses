@@ -30,11 +30,11 @@ repos:
   hooks:
   - id: black
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v2.3.0    # Use the ref you want to point at
+  rev: v4.4.0
   hooks:
   - id: trailing-whitespace
   - id: check-ast
-  - id: check-byte-order-marker
+  - id: fix-byte-order-marker
   - id: check-case-conflict
   - id: check-docstring-first
   - id: check-merge-conflict
@@ -45,4 +45,7 @@ repos:
     args: [--remove]
   - id: mixed-line-ending
     args: [--fix=lf]
+- repo: https://github.com/PyCQA/flake8
+  rev: 4.0.1
+  hooks:
   - id: flake8
