@@ -18,7 +18,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 Django = ">=2.2"
-attrs = ">=19.1"
+attrs = "~22.2.0"
 lxml = {version = "^4.6.3", optional = true}
 python = ">= 3.7, < 3.12"
 
