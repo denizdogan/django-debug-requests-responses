@@ -24,7 +24,7 @@ python = ">= 3.7, < 3.12"
 
 [tool.poetry.dev-dependencies]
 black = "^23.1.0"
-faker = "^9.8.4"
+faker = "^17.0.0"
 faker_web = "^0.3.1"
 flake8 = "^5.0.4"
 flake8-black = "^0.1.1"
