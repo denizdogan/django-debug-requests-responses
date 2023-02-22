@@ -15,7 +15,7 @@ DDRR can also be used for general logging with some configuration of your own.
 
 ## Installation
 
-1. ```
+1. ```console
    $ pip install ddrr
    ```
 
