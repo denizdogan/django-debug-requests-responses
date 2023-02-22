@@ -42,7 +42,8 @@ xml = ["lxml"]
 
 [tool.black]
 line-length = 79
-target-version = ['py37', 'py38']
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
+required-version = '23'
 
 [tool.isort]
 profile = "black"

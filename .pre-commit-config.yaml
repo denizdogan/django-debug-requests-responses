@@ -26,7 +26,10 @@ repos:
   - id: pyupgrade
     args: [--py37-plus]
 - repo: https://github.com/ambv/black
-  rev: 23.1.0
+  # The `refs/tags/<tag>:refs/tags/<tag>` is needed for black's
+  # `required-version` option to work.  See
+  # https://github.com/psf/black/issues/2493#issuecomment-1081987650
+  rev: refs/tags/23.1.0:refs/tags/23.1.0
   hooks:
   - id: black
 - repo: https://github.com/pre-commit/pre-commit-hooks
