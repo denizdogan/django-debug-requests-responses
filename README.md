@@ -121,13 +121,44 @@ For hacking on DDRR, make sure you are familiar with:
 - [pre-commit](https://github.com/pre-commit/pre-commit)
 - [pytest](https://docs.pytest.org)
 
-Install dependencies and set up the pre-commit hooks.
+### Set up environment
 
-```
+Install project dependencies using Poetry, then install the pre-commit hooks.
+
+```console
 $ poetry install
-$ pre-commit install
+$ poetry shell
+(poetry) $ pre-commit install
 ```
 
-The pre-commit hooks will, among other things, run Flake8 on the code base and
-Black to make sure the code style is consistent across all files.  Check out
-[`.pre-commit-config.yaml`](.pre-commit-config.yaml) for details.
+> The pre-commit hooks will, among other things, run Flake8 on the code, and
+> format everything with Black. The full pre-commit configuration exists in
+> [`.pre-commit-config.yaml`](.pre-commit-config.yaml).
+
+### Running tests
+
+Run tests using the current Python interpreter and installed Django version.
+
+```console
+(poetry) $ pytest
+```
+
+Run tests with every supported Python and Django combination:
+
+```console
+(poetry) $ tox
+```
+
+### Running GitHub Actions locally
+
+Use [act](https://github.com/nektos/act).
+
+```console
+$ act
+```
+
+If you are running macOS, you may need to use:
+
+```console
+$ act --container-architecture linux/amd64
+```
