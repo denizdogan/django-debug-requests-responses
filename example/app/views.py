@@ -14,18 +14,18 @@ def unauthorized(request):
 
 
 def ugly_xml(request):
-    ugly_xml = """
+    string = """
         <message>
         <from>   John Doe</from>
             <to>Jane   </to><body>
         God I wish we had a pretty printer...
     </body></message>
     """
-    return HttpResponse(ugly_xml, content_type="text/xml")
+    return HttpResponse(string, content_type="text/xml")
 
 
 def ugly_json(request):
-    ugly_json = """
+    string = """
         {
          "message": {
                     "from": "John Doe",
@@ -34,7 +34,7 @@ def ugly_json(request):
                 }
         }
         """
-    return HttpResponse(ugly_json, content_type="application/json")
+    return HttpResponse(string, content_type="application/json")
 
 
 def pdf_file(request):
