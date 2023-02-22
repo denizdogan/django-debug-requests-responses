@@ -1,4 +1,4 @@
-name: Tox
+name: Build and test
 
 on:
 - push
@@ -22,4 +22,6 @@ jobs:
     - name: Install Poetry dependencies
       run: |
         poetry install -n --no-ansi --no-root --sync --all-extras --with=test
+    - name: Tox
+      run: |
         poetry run -n --no-ansi -- tox --colored no
