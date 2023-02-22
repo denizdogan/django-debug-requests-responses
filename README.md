@@ -2,7 +2,7 @@
 
 Get more out of your `runserver` development output! Print request and response
 headers, body (with pretty-printing), etc.  Highly customizable! Supports
-Django 2.2+ and 3.0+, with Python 3.7+.
+Django 3.2-4.1 with Python 3.8-3.11.
 
 - Full request headers
 - The entire request body
@@ -127,9 +127,9 @@ For hacking on DDRR, make sure you are familiar with:
 Install project dependencies using Poetry, then install the pre-commit hooks.
 
 ```console
-$ poetry install
 $ poetry shell
-(poetry) $ pre-commit install
+(.venv) $ poetry install --all-extras --with=dev,test
+(.venv) $ pre-commit install
 ```
 
 > The pre-commit hooks will, among other things, run Flake8 on the code, and
@@ -138,16 +138,17 @@ $ poetry shell
 
 ### Running tests
 
-Run tests using the current Python interpreter and installed Django version.
+Run tests using the current Python interpreter and currently installed Django
+version.
 
 ```console
-(poetry) $ pytest
+(.venv) $ pytest
 ```
 
 Run tests with every supported Python and Django combination:
 
 ```console
-(poetry) $ tox
+(.venv) $ tox
 ```
 
 ### Running GitHub Actions locally

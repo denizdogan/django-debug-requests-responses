@@ -1,5 +1,18 @@
 # Change log
 
+## [Unreleased]
+
+With this release, DDRR only supports Python 3.8-3.11 and Django 3.2-4.1.
+
+### Added
+
+- Support for Python 3.10 and 3.11
+
+### Removed
+
+- Support for Python < 3.8
+- Support for Django < 3.2
+
 ## April 3, 2022 - 3.1.0
 
 - Fix: The request could crash when the log record could not be formatted
@@ -74,3 +87,5 @@
 ## May 18, 2019 - 0.1.0
 
 - Initial release
+
+- [unreleased]: https://github.com/denizdogan/django-debug-requests-responses/compare/3.1.0...HEAD
