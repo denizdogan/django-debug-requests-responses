@@ -50,4 +50,4 @@ force_single_line = true
 
 [build-system]
 build-backend = "poetry.masonry.api"
-requires = ["poetry>=1.0.5"]
+requires = ["poetry>=1.3.2"]
