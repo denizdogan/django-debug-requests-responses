@@ -31,6 +31,7 @@ If you don't like the default output format, read on...
 ## Customization
 
 ```python
+import logging
 DDRR = {
     "ENABLE_REQUESTS": True,  # enable request logging
     "ENABLE_RESPONSES": True,  # enable response logging
@@ -111,7 +112,7 @@ can easily configure it to log it to a file, Logstash, or anything else.
 
 ## Development and contributions
 
-PR's are always welcome!
+PRs are always welcome!
 
 For hacking on DDRR, make sure you are familiar with:
 
