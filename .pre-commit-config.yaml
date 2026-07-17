@@ -1,40 +1,25 @@
 repos:
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
-  hooks:
-  - id: check-yaml
-  - id: end-of-file-fixer
-  - id: trailing-whitespace
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
   rev: v2.16.0
   hooks:
   - id: pretty-format-yaml
     args: [--autofix, --indent, '2']
-- repo: https://github.com/hadialqattan/pycln
-  rev: v2.6.0
+- repo: local
   hooks:
-  - id: pycln
-    args: [--config=pyproject.toml]
-- repo: https://github.com/pycqa/isort
-  rev: 5.11.5
-  hooks:
-  - id: isort
-    args: [--filter-files]
-- repo: https://github.com/asottile/pyupgrade
-  rev: v3.3.1
-  hooks:
-  - id: pyupgrade
-    args: [--py37-plus]
-- repo: https://github.com/ambv/black
-  # The `refs/tags/<tag>:refs/tags/<tag>` is needed for black's
-  # `required-version` option to work.  See
-  # https://github.com/psf/black/issues/2493#issuecomment-1081987650
-  rev: refs/tags/23.1.0:refs/tags/23.1.0
-  hooks:
-  - id: black
+  - id: ruff-check
+    name: ruff check
+    entry: mise exec -- ruff check --fix
+    language: system
+    types_or: [python, pyi]
+  - id: ruff-format
+    name: ruff format
+    entry: mise exec -- ruff format
+    language: system
+    types_or: [python, pyi]
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.4.0
   hooks:
+  - id: check-yaml
   - id: trailing-whitespace
   - id: check-ast
   - id: fix-byte-order-marker
@@ -48,7 +33,3 @@ repos:
     args: [--remove]
   - id: mixed-line-ending
     args: [--fix=lf]
-- repo: https://github.com/PyCQA/flake8
-  rev: 4.0.1
-  hooks:
-  - id: flake8

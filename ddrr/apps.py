@@ -30,9 +30,7 @@ class DDRRConfig(AppConfig):
         enable_responses = s("ENABLE_RESPONSES", True)
         level = s("LEVEL", "DEBUG")
         pretty = s("PRETTY_PRINT", False)
-        request_template_name = s(
-            "REQUEST_TEMPLATE_NAME", "ddrr/default-request.html"
-        )
+        request_template_name = s("REQUEST_TEMPLATE_NAME", "ddrr/default-request.html")
         request_template = s("REQUEST_TEMPLATE", None)
         response_template_name = s(
             "RESPONSE_TEMPLATE_NAME", "ddrr/default-response.html"
@@ -68,9 +66,7 @@ class DDRRConfig(AppConfig):
             request_formatter_kwargs["template"] = request_template
         else:
             request_formatter_kwargs["template_name"] = request_template_name
-        request_formatter = DjangoTemplateRequestFormatter(
-            **request_formatter_kwargs
-        )
+        request_formatter = DjangoTemplateRequestFormatter(**request_formatter_kwargs)
         request_handler.setFormatter(request_formatter)
 
         # set up response formatter

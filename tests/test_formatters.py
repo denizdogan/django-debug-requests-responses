@@ -32,9 +32,7 @@ def test_django_template_lazy_loading():
     Template resolution in DjangoTemplateRequestFormatter is not performed until
     accessing the `template` property.
     """
-    formatter = DjangoTemplateRequestFormatter(
-        template_name="template_name.html"
-    )
+    formatter = DjangoTemplateRequestFormatter(template_name="template_name.html")
     with pytest.raises(TemplateDoesNotExist):
         # noinspection PyStatementEffect
         formatter.template

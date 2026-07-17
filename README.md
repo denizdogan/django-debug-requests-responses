@@ -116,9 +116,8 @@ PRs are always welcome!
 
 For hacking on DDRR, make sure you are familiar with:
 
-- [Black](https://github.com/ambv/black)
-- [Flake8](http://flake8.pycqa.org/)
 - [mise](https://mise.jdx.dev/)
+- [Ruff](https://docs.astral.sh/ruff/)
 - [uv](https://docs.astral.sh/uv/)
 - [pre-commit](https://github.com/pre-commit/pre-commit)
 - [pytest](https://docs.pytest.org)
@@ -135,8 +134,8 @@ $ mise exec -- uv sync --extra xml
 $ mise exec -- uv run pre-commit install
 ```
 
-> The pre-commit hooks will, among other things, run Flake8 on the code, and
-> format everything with Black. The full pre-commit configuration exists in
+> The pre-commit hooks will, among other things, use Ruff to lint and format
+> Python code. The full pre-commit configuration exists in
 > [`.pre-commit-config.yaml`](.pre-commit-config.yaml).
 
 ### Running tests

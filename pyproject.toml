@@ -37,12 +37,6 @@ Repository = "https://github.com/denizdogan/django-debug-requests-responses"
 [dependency-groups]
 dev = [
     { include-group = "test" },
-    "black>=23.1,<24",
-    "flake8>=6,<7",
-    "flake8-black>=0.3.6,<0.4",
-    "flake8-bugbear>=23.2.13,<24",
-    "flake8-isort>=5.0.3,<6",
-    "isort>=5.11.5,<6",
     "pre-commit>=2.21,<3",
     "tox>=4,<5",
     "tox-uv>=1,<2",
@@ -70,14 +64,7 @@ conflicts = [
 [tool.uv.build-backend]
 module-root = ""
 
-[tool.black]
-line-length = 79
-target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
-required-version = '23'
 
-[tool.isort]
-profile = "black"
-force_single_line = true
 
 [build-system]
 requires = ["uv_build>=0.11.29,<0.12"]
