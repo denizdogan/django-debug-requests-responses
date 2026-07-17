@@ -16,6 +16,11 @@ repos:
     entry: mise exec -- ruff format
     language: system
     types_or: [python, pyi]
+  - id: ty-check
+    name: ty check
+    entry: mise exec -- ty check
+    language: system
+    pass_filenames: false
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.4.0
   hooks:

@@ -118,6 +118,7 @@ For hacking on DDRR, make sure you are familiar with:
 
 - [mise](https://mise.jdx.dev/)
 - [Ruff](https://docs.astral.sh/ruff/)
+- [ty](https://docs.astral.sh/ty/)
 - [uv](https://docs.astral.sh/uv/)
 - [pre-commit](https://github.com/pre-commit/pre-commit)
 - [pytest](https://docs.pytest.org)
@@ -135,8 +136,16 @@ $ mise exec -- uv run pre-commit install
 ```
 
 > The pre-commit hooks will, among other things, use Ruff to lint and format
-> Python code. The full pre-commit configuration exists in
-> [`.pre-commit-config.yaml`](.pre-commit-config.yaml).
+> Python code and ty to check types. The full pre-commit configuration exists
+> in [`.pre-commit-config.yaml`](.pre-commit-config.yaml).
+
+### Type checking
+
+Run ty using the current Python interpreter and project environment:
+
+```console
+$ mise exec -- ty check
+```
 
 ### Running tests
 

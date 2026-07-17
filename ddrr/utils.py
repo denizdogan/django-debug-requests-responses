@@ -6,11 +6,9 @@ from xml.dom import minidom
 import django
 
 try:
-    from lxml import etree
-    from lxml.etree import XMLSyntaxError
+    from lxml import etree  # ty: ignore[unresolved-import]
 except ImportError:
     etree = None
-    XMLSyntaxError = None
 
 
 SPECIAL_HEADERS = {
@@ -180,7 +178,7 @@ def pretty_print_xml(content):
             parser = etree.XMLParser(remove_blank_text=True)
             tree = etree.fromstring(content, parser)
             return etree.tostring(tree, encoding=str, pretty_print=True)
-        except XMLSyntaxError:
+        except etree.XMLSyntaxError:
             return content
     # noinspection PyBroadException
     try:

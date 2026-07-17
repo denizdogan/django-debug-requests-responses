@@ -1,4 +1,5 @@
 import textwrap
+from typing import Any
 
 import attr
 from django.utils.functional import cached_property
@@ -7,11 +8,11 @@ from ddrr.utils import collect_request_headers
 from ddrr.utils import pretty_print
 
 
-@attr.s
+@attr.define(slots=False)
 class RequestLogRecord:
-    record = attr.ib()
-    request = attr.ib()
-    _formatter = attr.ib()
+    record: Any
+    request: Any
+    _formatter: Any = attr.field(alias="formatter")
 
     @cached_property
     def headers(self):
@@ -61,11 +62,11 @@ class RequestLogRecord:
         return cls(record=record, request=record.msg, formatter=formatter)
 
 
-@attr.s
+@attr.define(slots=False)
 class ResponseLogRecord:
-    record = attr.ib()
-    response = attr.ib()
-    _formatter = attr.ib()
+    record: Any
+    response: Any
+    _formatter: Any = attr.field(alias="formatter")
 
     @cached_property
     def headers(self):

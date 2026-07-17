@@ -50,7 +50,7 @@ class StatusCodeFilter(GenericAttributeFilter):
         :param status_codes: Disallowed status codes as comma-separated string
         """
         self.status_codes = (
-            len(status_codes) and list(map(int, status_codes.split(","))) or []
+            list(map(int, status_codes.split(","))) if status_codes else []
         )
         super().__init__(name)
 
