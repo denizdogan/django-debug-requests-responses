@@ -45,16 +45,14 @@ class DDRRConfig(AppConfig):
         # set up request logger and handler
         request_handler.setLevel(level)
         request_logger.setLevel(level)
-        request_logger.addHandler(request_handler)
-        if not enable_requests:
-            request_logger.disabled = False
+        if enable_requests:
+            request_logger.addHandler(request_handler)
 
         # set up response logger and handler
         response_handler.setLevel(level)
         response_logger.setLevel(level)
-        response_logger.addHandler(response_handler)
-        if not enable_responses:
-            response_logger.disabled = False
+        if enable_responses:
+            response_logger.addHandler(response_handler)
 
         # set up request formatter
         request_formatter_kwargs = {
