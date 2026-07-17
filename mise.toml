@@ -1,6 +1,7 @@
 [tools]
 python = ["3.11", "3.10", "3.9", "3.8"]
-poetry = "1.3.2"
+uv = "0.11"
 
 [settings]
 lockfile = true
+python.uv_venv_auto = "create|source"
