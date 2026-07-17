@@ -1,5 +1,5 @@
-{% load ddrr %}
-{% if formatter.colors %}{{ 'Response:'|colorize:"red" }}{% else %}Response:{% endif %} {{ ddrr.status_code }} {{ ddrr.reason_phrase }}
-{% for header, value in ddrr.headers.items %}{{ header }}: {{ value }}
-{% endfor %}{% if ddrr.content %}
-{{ ddrr.content }}{% endif %}🔚
+{% load ddrr %}{% if formatter.colors %}{{ '→'|colorize:"magenta" }}{% else %}→{% endif %} {{ ddrr.status_code }} {{ ddrr.reason_phrase }}
+{% for header, value in ddrr.headers.items %}{% if not forloop.first %}
+{% endif %}  {{ header }}: {{ value }}{% endfor %}{% if ddrr.content %}
+
+{{ ddrr.content }}{% endif %}

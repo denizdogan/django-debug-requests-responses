@@ -11,12 +11,15 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 
 ### Changed
 
+- Modernize the default request and response output with directional markers, indented headers, and consistent spacing
 - Upgrade to pytest 9 and pre-commit 4
 - Replace Faker and pytest-mock with standard-library test data and helpers
 - Include source doctests in the test suite
 
 ### Fixed
 
+- Continue rendering request logs when the request body has already been consumed #6
+- Keep `DISABLE_DJANGO_SERVER_LOG` effective when Django reapplies its logging configuration
 - Respect the `ENABLE_REQUESTS` and `ENABLE_RESPONSES` settings
 
 ### Removed

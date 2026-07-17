@@ -168,7 +168,7 @@ def pretty_print_xml(content):
     >>> pretty_print_xml('<p></u>')
     '<p></u>'
     >>> pretty_print_xml('<p><div><b>hel</b>lo!</div></p>')
-    '<p>\\n  <div><b>hel</b>lo!</div>\\n</p>\\n'
+    '<p>\\n  <div><b>hel</b>lo!</div>\\n</p>'
 
     :param content: XML string
     :return: Pretty-printed XML string
@@ -177,12 +177,12 @@ def pretty_print_xml(content):
         try:
             parser = etree.XMLParser(remove_blank_text=True)
             tree = etree.fromstring(content, parser)
-            return etree.tostring(tree, encoding=str, pretty_print=True)
+            return etree.tostring(tree, encoding=str, pretty_print=True).rstrip("\r\n")
         except etree.XMLSyntaxError:
             return content
     # noinspection PyBroadException
     try:
-        return minidom.parseString(content).toprettyxml(indent="  ")
+        return minidom.parseString(content).toprettyxml(indent="  ").rstrip("\r\n")
     except Exception:
         return content
 
