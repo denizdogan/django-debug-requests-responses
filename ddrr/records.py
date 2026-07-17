@@ -1,7 +1,7 @@
 import textwrap
+from dataclasses import dataclass
 from typing import Any
 
-import attr
 from django.http import RawPostDataException
 from django.utils.functional import cached_property
 
@@ -9,11 +9,16 @@ from ddrr.utils import collect_request_headers
 from ddrr.utils import pretty_print
 
 
-@attr.define(slots=False)
+@dataclass(init=False)
 class RequestLogRecord:
     record: Any
     request: Any
-    _formatter: Any = attr.field(alias="formatter")
+    _formatter: Any
+
+    def __init__(self, record: Any, request: Any, formatter: Any) -> None:
+        self.record = record
+        self.request = request
+        self._formatter = formatter
 
     @cached_property
     def headers(self):
@@ -68,11 +73,16 @@ class RequestLogRecord:
         return cls(record=record, request=record.msg, formatter=formatter)
 
 
-@attr.define(slots=False)
+@dataclass(init=False)
 class ResponseLogRecord:
     record: Any
     response: Any
-    _formatter: Any = attr.field(alias="formatter")
+    _formatter: Any
+
+    def __init__(self, record: Any, response: Any, formatter: Any) -> None:
+        self.record = record
+        self.response = response
+        self._formatter = formatter
 
     @cached_property
     def headers(self):
