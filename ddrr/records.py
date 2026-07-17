@@ -2,6 +2,7 @@ import textwrap
 from typing import Any
 
 import attr
+from django.http import RawPostDataException
 from django.utils.functional import cached_property
 
 from ddrr.utils import collect_request_headers
@@ -21,9 +22,14 @@ class RequestLogRecord:
     @cached_property
     def body(self):
         try:
-            content = self.request.body.decode("utf-8")
-        except UnicodeDecodeError:
-            content = str(self.request.body)
+            body = self.request.body
+        except RawPostDataException:
+            content = "<request body unavailable: already read>"
+        else:
+            try:
+                content = body.decode("utf-8")
+            except UnicodeDecodeError:
+                content = str(body)
         # optionally pretty print
         if self._formatter.pretty:
             content = pretty_print(content, self.content_type)

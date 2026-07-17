@@ -1,5 +1,8 @@
+import logging
+
 import pytest
 from django.template import TemplateDoesNotExist
+from django.test import RequestFactory
 
 from ddrr.formatters import DjangoTemplateRequestFormatter
 
@@ -36,3 +39,20 @@ def test_django_template_lazy_loading():
     with pytest.raises(TemplateDoesNotExist):
         # noinspection PyStatementEffect
         formatter.template
+
+
+def test_django_template_request_formatter_handles_consumed_body():
+    request = RequestFactory().post("/", {"field": "value"})
+    assert request.POST["field"] == "value"
+    record = logging.LogRecord(
+        name="test",
+        level=logging.DEBUG,
+        pathname="",
+        lineno=0,
+        msg=request,
+        args=(),
+        exc_info=None,
+    )
+    formatter = DjangoTemplateRequestFormatter(template="{{ ddrr.body }}", colors=False)
+
+    assert formatter.format(record) == "<request body unavailable: already read>"
