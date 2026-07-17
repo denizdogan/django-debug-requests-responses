@@ -1,5 +1,7 @@
 DEBUG = True
 
+USE_TZ = False
+
 SECRET_KEY = "ddrr"
 
 INSTALLED_APPS = ("ddrr",)

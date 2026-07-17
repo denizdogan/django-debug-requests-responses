@@ -2,7 +2,7 @@
 
 Get more out of your `runserver` development output! Print request and response
 headers, body (with pretty-printing), etc.  Highly customizable! Supports
-Django 3.2-4.1 with Python 3.8-3.11.
+Django 5.2-6.0 with Python 3.11-3.14.
 
 - Full request headers
 - The entire request body

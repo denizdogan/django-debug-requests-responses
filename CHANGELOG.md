@@ -2,16 +2,17 @@
 
 ## [Unreleased]
 
-With this release, DDRR only supports Python 3.8-3.11 and Django 3.2-4.1.
+With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 
 ### Added
 
-- Support for Python 3.10 and 3.11
+- Support for Python 3.12, 3.13, and 3.14
+- Support for Django 5.2 and 6.0
 
 ### Removed
 
-- Support for Python < 3.8
-- Support for Django < 3.2
+- Support for Python < 3.11
+- Support for Django < 5.2
 
 ## April 3, 2022 - 3.1.0
 
