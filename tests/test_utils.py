@@ -1,13 +1,12 @@
 from ddrr.utils import collect_request_headers
-from tests.utils import fake
 
 
 def test_collect_request_headers(rf):
     """
     collect_request_headers properly formats headers.
     """
-    content_type = fake.content_type()
-    content_length = fake.random_int()
+    content_type = "application/json"
+    content_length = 123
     request = rf.get(
         "/",
         CONTENT_LENGTH=content_length,

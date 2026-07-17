@@ -41,16 +41,13 @@ Repository = "https://github.com/denizdogan/django-debug-requests-responses"
 [dependency-groups]
 dev = [
     { include-group = "test" },
-    "pre-commit>=2.21,<3",
+    "pre-commit>=4.6,<5",
     "tox>=4,<5",
     "tox-uv>=1,<2",
 ]
 test = [
-    "faker>=17,<18",
-    "faker-web>=0.3.1,<0.4",
-    "pytest>=7.2.1,<8",
-    "pytest-django>=4.5.2,<5",
-    "pytest-mock>=3.10,<4",
+    "pytest>=9.1,<10",
+    "pytest-django>=4.12,<5",
 ]
 django52 = ["Django~=5.2.0"]
 django60 = ["Django~=6.0.0; python_version >= '3.12'"]
