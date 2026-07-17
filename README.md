@@ -118,18 +118,20 @@ For hacking on DDRR, make sure you are familiar with:
 
 - [Black](https://github.com/ambv/black)
 - [Flake8](http://flake8.pycqa.org/)
+- [mise](https://mise.jdx.dev/)
 - [Poetry](https://poetry.eustace.io/)
 - [pre-commit](https://github.com/pre-commit/pre-commit)
 - [pytest](https://docs.pytest.org)
 
 ### Set up environment
 
-Install project dependencies using Poetry, then install the pre-commit hooks.
+Install the locked tool versions using mise, install the project dependencies
+using Poetry, then install the pre-commit hooks.
 
 ```console
-$ poetry shell
-(.venv) $ poetry install --all-extras --with=dev,test
-(.venv) $ pre-commit install
+$ mise install
+$ mise exec -- poetry install --all-extras --with=dev,test
+$ mise exec -- poetry run pre-commit install
 ```
 
 > The pre-commit hooks will, among other things, run Flake8 on the code, and
@@ -142,13 +144,13 @@ Run tests using the current Python interpreter and currently installed Django
 version.
 
 ```console
-(.venv) $ pytest
+$ mise exec -- poetry run pytest
 ```
 
 Run tests with every supported Python and Django combination:
 
 ```console
-(.venv) $ tox
+$ mise exec -- poetry run tox
 ```
 
 ### Running GitHub Actions locally
