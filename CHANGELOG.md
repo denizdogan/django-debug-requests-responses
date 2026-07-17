@@ -11,6 +11,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 
 ### Changed
 
+- Add local GitHub Actions validation with `act` and `actionlint`
 - Modernize the default request and response output with directional markers, indented headers, and consistent spacing
 - Upgrade to pytest 9 and pre-commit 4
 - Replace Faker and pytest-mock with standard-library test data and helpers

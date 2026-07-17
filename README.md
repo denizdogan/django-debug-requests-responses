@@ -117,6 +117,8 @@ PRs are always welcome!
 For hacking on DDRR, make sure you are familiar with:
 
 - [mise](https://mise.jdx.dev/)
+- [act](https://nektosact.com/)
+- [actionlint](https://github.com/rhysd/actionlint)
 - [Ruff](https://docs.astral.sh/ruff/)
 - [ty](https://docs.astral.sh/ty/)
 - [uv](https://docs.astral.sh/uv/)
@@ -138,6 +140,17 @@ $ mise exec -- uv run pre-commit install
 > The pre-commit hooks will, among other things, use Ruff to lint and format
 > Python code and ty to check types. The full pre-commit configuration exists
 > in [`.pre-commit-config.yaml`](.pre-commit-config.yaml).
+
+### GitHub Actions
+
+With Docker running, run the GitHub Actions workflow locally using act:
+
+```console
+$ mise run act
+```
+
+Pass additional act options after `--`, for example `mise run act -- --list`.
+Workflow files are also checked with actionlint by pre-commit.
 
 ### Type checking
 

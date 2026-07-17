@@ -21,6 +21,11 @@ repos:
     entry: mise exec -- ty check
     language: system
     pass_filenames: false
+  - id: actionlint
+    name: actionlint
+    entry: mise exec -- actionlint
+    language: system
+    files: ^\.github/workflows/.*\.ya?ml$
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.4.0
   hooks:

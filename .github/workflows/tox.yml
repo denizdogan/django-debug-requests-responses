@@ -10,6 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: jdx/mise-action@v4
+      with:
+        cache: ${{ !env.ACT }}
     - name: Sync dependencies
       run: uv sync --locked
     - name: Type check
