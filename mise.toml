@@ -18,16 +18,15 @@ mkdir -p docs
 freeze \
   --window \
   --background "#0f172a" \
-  --margin 32 \
-  --padding 40 \
-  --height 740 \
-  --font.size 26 \
+  --margin 12 \
+  --padding 16 \
+  --font.size 14 \
   --font.ligatures \
-  --border.radius 32 \
-  --border.width 2 \
+  --border.radius 8 \
+  --border.width 1 \
   --border.color "#334155" \
-  --shadow.blur 24 \
-  --shadow.y 20 \
+  --shadow.blur 6 \
+  --shadow.y 4 \
   --execute "python example/screenshot.py" \
   --output docs/ddrr-output.png
 '''
