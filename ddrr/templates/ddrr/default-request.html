@@ -1,5 +1,0 @@
-{% load ddrr %}{% if formatter.colors %}{{ '←'|colorize:"cyan" }}{% else %}←{% endif %} {{ ddrr.method }} {{ ddrr.path }}{{ ddrr.query_string }}
-{% for header, value in ddrr.headers.items %}{% if not forloop.first %}
-{% endif %}  {{ header }}: {{ value }}{% endfor %}{% if ddrr.body %}
-
-{{ ddrr.body }}{% endif %}

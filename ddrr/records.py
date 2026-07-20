@@ -58,10 +58,6 @@ class RequestLogRecord:
         return f"?{query_string}" if query_string else ""
 
     @cached_property
-    def query_params(self):
-        return self.request.GET
-
-    @cached_property
     def content_type(self):
         return self.headers.get("Content-Type", "")
 
@@ -82,13 +78,9 @@ class ResponseLogRecord:
         self._formatter = formatter
 
     @cached_property
-    def headers(self):
-        return dict(self.response.items())
-
-    @cached_property
     def header_items(self):
         return [
-            *self.headers.items(),
+            *self.response.items(),
             *(
                 ("Set-Cookie", cookie.OutputString())
                 for cookie in self.response.cookies.values()
@@ -124,7 +116,7 @@ class ResponseLogRecord:
 
     @cached_property
     def content_type(self):
-        return self.headers.get("Content-Type")
+        return self.response.headers.get("Content-Type")
 
     @classmethod
     def make(cls, record, formatter):

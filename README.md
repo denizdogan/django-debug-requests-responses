@@ -26,7 +26,7 @@ DDRR can also be used for general logging with some configuration of your own.
 **Done!** When you run `runserver`, you'll now get the entire HTTP requests and
 responses, including headers and bodies.
 
-If you don't like the default output format, read on...
+To adjust DDRR's logging behavior, read on...
 
 ## Customization
 
@@ -37,10 +37,6 @@ DDRR = {
     "ENABLE_RESPONSES": True,  # enable response logging
     "LEVEL": "DEBUG",  # ddrr log level
     "PRETTY_PRINT": False,  # pretty-print JSON and XML
-    "REQUEST_TEMPLATE_NAME": "ddrr/default-request.html",  # request log template name
-    "REQUEST_TEMPLATE": None,  # request log template string (overrides template name)
-    "RESPONSE_TEMPLATE_NAME": "ddrr/default-response.html",  # response log template name
-    "RESPONSE_TEMPLATE": None,  # response log template string (overrides template name)
     "REQUEST_HANDLER": logging.StreamHandler(),  # request log handler
     "RESPONSE_HANDLER": logging.StreamHandler(),  # response log handler
     "ENABLE_COLORS": True,  # enable colors if terminal supports it
@@ -49,42 +45,7 @@ DDRR = {
 }
 ```
 
-### Template contexts
 
-If you want to customize request or response templates, you can use the following values:
-
-- **Request template context:**
-  - `ddrr.body` - request body
-  - `ddrr.content_type` - request content type
-  - `ddrr.formatter` - the formatter
-  - `ddrr.headers` - mapping of header fields and values
-  - `ddrr.method` - request method
-  - `ddrr.path` - request path
-  - `ddrr.query_params` - query parameters
-  - `ddrr.query_string` - query string
-  - `ddrr.record` - the actual log record object
-  - `ddrr.request` - the actual request object
-- **Response template context:**
-  - `ddrr.content` - response content
-  - `ddrr.content_type` - response content type
-  - `ddrr.formatter` - the formatter
-  - `ddrr.headers` - mapping of header fields and values
-  - `ddrr.reason_phrase` - response reason phrase
-  - `ddrr.record` - the actual log record object
-  - `ddrr.response` - the actual response object
-  - `ddrr.status_code` - response status code
-
-For example, this will log the method, path and body of each request, as well
-as the status code, reason phrase and content of each response:
-
-```python
-DDRR = {
-    "REQUEST_TEMPLATE": "{{ ddrr.method }} {{ ddrr.path }}\n"
-                        "{{ ddrr.body }}",
-    "RESPONSE_TEMPLATE": "{{ ddrr.status_code }} {{ ddrr.reason_phrase }}\n"
-                         "{{ ddrr.content }}",
-}
-```
 
 ### Pretty-printing
 
@@ -96,12 +57,10 @@ no external dependencies.
 
 ## How it works internally
 
-The middleware `ddrr.middleware.DebugRequestsResponses` sends the entire
-request object as the message to `ddrr-request-logger`.  This logger has been
-configured to use `ddrr.formatters.DjangoTemplateRequestFormatter` which
-internally uses Django's built-in template engine to format the request into
-human-readable form. By default, this is shown in your console output, but you
-can easily configure it to log it to a file, Logstash, or anything else.
+The middleware `ddrr.middleware.DebugRequestsResponses` sends request and
+response objects to separate loggers. DDRR's formatters turn them into fixed,
+human-readable output. By default, this is shown in your console, but you can
+configure the handlers to send it elsewhere.
 
 ## Similar projects
 

@@ -3,8 +3,8 @@ import logging
 from django.apps import AppConfig
 from django.conf import settings
 
-from ddrr.formatters import DjangoTemplateRequestFormatter
-from ddrr.formatters import DjangoTemplateResponseFormatter
+from ddrr.formatters import RequestFormatter
+from ddrr.formatters import ResponseFormatter
 from ddrr.loggers import request_logger
 from ddrr.loggers import response_logger
 
@@ -38,12 +38,6 @@ class DDRRConfig(AppConfig):
         enable_responses = s("ENABLE_RESPONSES", True)
         level = s("LEVEL", "DEBUG")
         pretty = s("PRETTY_PRINT", False)
-        request_template_name = s("REQUEST_TEMPLATE_NAME", "ddrr/default-request.html")
-        request_template = s("REQUEST_TEMPLATE", None)
-        response_template_name = s(
-            "RESPONSE_TEMPLATE_NAME", "ddrr/default-response.html"
-        )
-        response_template = s("RESPONSE_TEMPLATE", None)
         request_handler = s("REQUEST_HANDLER", logging.StreamHandler())
         response_handler = s("RESPONSE_HANDLER", logging.StreamHandler())
         colors = s("ENABLE_COLORS", True)
@@ -62,33 +56,12 @@ class DDRRConfig(AppConfig):
         if enable_responses:
             response_logger.addHandler(response_handler)
 
-        # set up request formatter
-        request_formatter_kwargs = {
-            "pretty": pretty,
-            "colors": colors,
-            "limit_body": limit_body,
-        }
-        if request_template:
-            request_formatter_kwargs["template"] = request_template
-        else:
-            request_formatter_kwargs["template_name"] = request_template_name
-        request_formatter = DjangoTemplateRequestFormatter(**request_formatter_kwargs)
-        request_handler.setFormatter(request_formatter)
-
-        # set up response formatter
-        response_formatter_kwargs = {
-            "pretty": pretty,
-            "colors": colors,
-            "limit_body": limit_body,
-        }
-        if response_template:
-            response_formatter_kwargs["template"] = response_template
-        else:
-            response_formatter_kwargs["template_name"] = response_template_name
-        response_formatter = DjangoTemplateResponseFormatter(
-            **response_formatter_kwargs
+        request_handler.setFormatter(
+            RequestFormatter(pretty=pretty, colors=colors, limit_body=limit_body)
         )
-        response_handler.setFormatter(response_formatter)
+        response_handler.setFormatter(
+            ResponseFormatter(pretty=pretty, colors=colors, limit_body=limit_body)
+        )
 
         # disable django server log
         if disable_django_server_log:

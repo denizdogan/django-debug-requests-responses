@@ -1,51 +1,18 @@
 import logging
 
-import pytest
 from django.http import HttpResponse
-from django.template import TemplateDoesNotExist
 from django.test import RequestFactory
 
-from ddrr.formatters import DjangoTemplateRequestFormatter
-from ddrr.formatters import DjangoTemplateResponseFormatter
+from ddrr.formatters import RequestFormatter
+from ddrr.formatters import ResponseFormatter
 
 
-def test_django_template_formatter_no_template():
-    """
-    Passing neither `template` nor `template_name` to DjangoTemplateRequestFormatter
-    raises RuntimeError.
-    """
-    with pytest.raises(RuntimeError):
-        DjangoTemplateRequestFormatter()
-
-
-def test_django_template_formatter_template_name():
-    """
-    Passing `template_name` to DjangoTemplateRequestFormatter raises no exceptions.
-    """
-    DjangoTemplateRequestFormatter(template_name="template_name.html")
-
-
-def test_django_template_formatter_template_string():
-    """
-    Passing `template` to DjangoTemplateRequestFormatter raises no errors.
-    """
-    DjangoTemplateRequestFormatter(template="{{ foo }}")
-
-
-def test_django_template_lazy_loading():
-    """
-    Template resolution in DjangoTemplateRequestFormatter is not performed until
-    accessing the `template` property.
-    """
-    formatter = DjangoTemplateRequestFormatter(template_name="template_name.html")
-    with pytest.raises(TemplateDoesNotExist):
-        # noinspection PyStatementEffect
-        formatter.template
-
-
-def test_django_template_request_formatter_handles_consumed_body():
+def test_request_formatter_handles_consumed_body():
     request = RequestFactory().post("/", {"field": "value"})
+
+    # "read" the request body
     assert request.POST["field"] == "value"
+
     record = logging.LogRecord(
         name="test",
         level=logging.DEBUG,
@@ -55,12 +22,12 @@ def test_django_template_request_formatter_handles_consumed_body():
         args=(),
         exc_info=None,
     )
-    formatter = DjangoTemplateRequestFormatter(template="{{ ddrr.body }}", colors=False)
+    formatter = RequestFormatter(colors=False)
 
-    assert formatter.format(record) == "<request body unavailable: already read>"
+    assert "<request body unavailable: already read>" in formatter.format(record)
 
 
-def test_default_request_template_uses_directional_header():
+def test_request_formatter_uses_directional_header():
     request = RequestFactory().get("/widgets?active=true", HTTP_ACCEPT="text/plain")
     record = logging.LogRecord(
         name="test",
@@ -71,9 +38,7 @@ def test_default_request_template_uses_directional_header():
         args=(),
         exc_info=None,
     )
-    formatter = DjangoTemplateRequestFormatter(
-        template_name="ddrr/default-request.html", colors=False
-    )
+    formatter = RequestFormatter(colors=False)
 
     output = formatter.format(record)
 
@@ -82,7 +47,7 @@ def test_default_request_template_uses_directional_header():
     assert output.endswith("  Accept: text/plain\n")
 
 
-def test_default_response_template_uses_directional_header():
+def test_response_formatter_uses_directional_header():
     response = HttpResponse(b"Created", status=201, content_type="text/plain")
     response.set_cookie("sessionid", "abc", httponly=True)
     response.set_cookie("theme", "dark")
@@ -95,9 +60,7 @@ def test_default_response_template_uses_directional_header():
         args=(),
         exc_info=None,
     )
-    formatter = DjangoTemplateResponseFormatter(
-        template_name="ddrr/default-response.html", colors=False
-    )
+    formatter = ResponseFormatter(colors=False)
 
     output = formatter.format(record)
 

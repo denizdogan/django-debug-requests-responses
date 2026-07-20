@@ -18,6 +18,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 - Replace Faker and pytest-mock with standard-library test data and helpers
 - Include source doctests in the test suite
 - Use Django's built-in request header formatting instead of custom normalization
+- Replace Django template rendering with direct request and response formatting
 
 ### Fixed
 
@@ -31,6 +32,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 
 ### Removed
 
+- Django template formatter classes, custom templates, and the `REQUEST_TEMPLATE_NAME`, `REQUEST_TEMPLATE`, `RESPONSE_TEMPLATE_NAME`, and `RESPONSE_TEMPLATE` settings
 - Optional `lxml` dependency and `xml` extra; XML pretty-printing now uses the Python standard library
 - Runtime dependency on attrs
 - Support for Python < 3.11
