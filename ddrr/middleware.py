@@ -6,7 +6,7 @@ from ddrr.loggers import response_logger
 
 def _log_safely(logger, value):
     try:
-        logger.debug(value)
+        logger.log(logger.getEffectiveLevel(), value)
     except Exception:
         pass
 

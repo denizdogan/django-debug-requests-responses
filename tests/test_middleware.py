@@ -1,11 +1,39 @@
+import logging
+from logging.handlers import BufferingHandler
 from unittest.mock import Mock
 
+import ddrr
 import pytest
 from django.http import HttpRequest
 from django.http import HttpResponse
 from django.urls import reverse
 
+from ddrr.apps import DDRRConfig
 from ddrr.middleware import DebugRequestsResponses
+
+
+def test_logging_uses_configured_level(settings, monkeypatch):
+    handler = BufferingHandler(capacity=2)
+    logger = logging.Logger("test-ddrr-request", level=logging.DEBUG)
+    settings.MIDDLEWARE = ["ddrr.middleware.DebugRequestsResponses"]
+    settings.DDRR = {
+        "LEVEL": "INFO",
+        "ENABLE_RESPONSES": False,
+        "REQUEST_HANDLER": handler,
+    }
+    monkeypatch.setattr("ddrr.apps.request_logger", logger)
+    monkeypatch.setattr("ddrr.apps.response_logger", logging.Logger("test-response"))
+    monkeypatch.setattr("ddrr.middleware.request_logger", logger)
+    DDRRConfig("ddrr", ddrr).ready()
+    request = HttpRequest()
+    response = HttpResponse()
+
+    middleware = DebugRequestsResponses(Mock(return_value=response))
+
+    assert middleware(request) is response
+    assert [(record.levelno, record.msg) for record in handler.buffer] == [
+        (logging.INFO, request)
+    ]
 
 
 @pytest.mark.parametrize("failing_logger", ["request_logger", "response_logger"])
@@ -20,7 +48,7 @@ def test_logging_failure_does_not_interrupt_request(
         "request_logger": Mock(),
         "response_logger": Mock(),
     }
-    loggers[failing_logger].debug.side_effect = RuntimeError("handler failed")
+    loggers[failing_logger].log.side_effect = RuntimeError("handler failed")
     for name, logger in loggers.items():
         monkeypatch.setattr(f"ddrr.middleware.{name}", logger)
 
@@ -63,5 +91,5 @@ def test_request_or_response_logging_can_be_disabled(
 
     assert middleware(request) is response
     get_response.assert_called_once_with(request)
-    assert request_logger.debug.call_count == request_calls
-    assert response_logger.debug.call_count == response_calls
+    assert request_logger.log.call_count == request_calls
+    assert response_logger.log.call_count == response_calls
