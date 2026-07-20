@@ -21,18 +21,19 @@ def _escape_controls(value):
     return str(value).translate(_CONTROL_ESCAPES)
 
 
-def _escape_body_controls(value):
-    return str(value).translate(_BODY_CONTROL_ESCAPES)
+def _escape_body(value):
+    body = str(value).translate(_BODY_CONTROL_ESCAPES)
+    if body.startswith(("<- ", "-> ")):
+        body = f"\\{body}"
+    return body.replace("\n<- ", "\n\\<- ").replace("\n-> ", "\n\\-> ")
 
 
 def _format_message(start_line, headers, body):
     lines = [start_line]
     for name, value in headers:
-        lines.append(f"  {_escape_controls(name)}: {_escape_controls(value)}")
+        lines.append(f"{_escape_controls(name)}: {_escape_controls(value)}")
     if body:
-        lines.append("")
-        body = _escape_body_controls(body)
-        lines.append("  " + body.replace("\n", "\n  "))
+        lines.extend(("", _escape_body(body)))
     return "\n".join(lines) + "\n"
 
 
@@ -46,7 +47,7 @@ class RequestFormatter(logging.Formatter):
     def format(self, record):
         try:
             request = RequestLogRecord.make(record, self)
-            marker = colorize("←", fg="cyan") if self.colors else "←"
+            marker = colorize("<-", fg="cyan") if self.colors else "<-"
             method = _escape_controls(request.method)
             target = _escape_controls(f"{request.path}{request.query_string}")
             return _format_message(
@@ -68,7 +69,7 @@ class ResponseFormatter(logging.Formatter):
     def format(self, record):
         try:
             response = ResponseLogRecord.make(record, self)
-            marker = colorize("→", fg="magenta") if self.colors else "→"
+            marker = colorize("->", fg="magenta") if self.colors else "->"
             status = _escape_controls(response.status_code)
             reason = _escape_controls(response.reason_phrase)
             return _format_message(

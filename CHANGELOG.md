@@ -18,7 +18,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 - Add Dependabot updates for Python dependencies, pre-commit hooks, and GitHub Actions
 - Add local GitHub Actions validation with `act` and `actionlint`
 - Validate linting and built distribution artifacts in CI
-- Modernize the default request and response output with directional markers, indented headers, and consistent spacing
+- Modernize request and response output with ASCII directional markers and copy-friendly HTTP-style spacing
 - Upgrade to pytest 9 and pre-commit 4
 - Replace Faker and pytest-mock with standard-library test data and helpers
 - Include source doctests in the test suite
@@ -35,7 +35,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 - Preserve raw query strings without parsing `request.GET`
 - Include every response `Set-Cookie` header in the rendered output
 - Restore the example PDF route with a bundled binary document
-- Escape terminal controls and indent body output
+- Escape terminal controls and body lines that could resemble log entries
 
 ### Removed
 

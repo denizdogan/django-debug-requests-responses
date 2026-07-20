@@ -8,7 +8,7 @@ def test_terminal_controls_example(rf):
     assert response.status_code == 200
     assert response["Content-Type"] == "text/plain"
     assert response.content.decode() == (
-        "normal line\n→ forged response\x1b[31m red text\x1b[0m\n"
+        "normal line\n-> forged response\x1b[31m red text\x1b[0m\n"
     )
 
 
