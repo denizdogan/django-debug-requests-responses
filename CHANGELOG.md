@@ -9,6 +9,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 - Support for Python 3.12, 3.13, and 3.14
 - Support for Django 5.2 and 6.0
 - Example route demonstrating safe terminal-control rendering
+- Synchronous and asynchronous middleware support
 
 ### Changed
 

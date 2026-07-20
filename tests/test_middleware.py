@@ -1,15 +1,53 @@
+import asyncio
 import logging
 from logging.handlers import BufferingHandler
 from unittest.mock import Mock
 
 import ddrr
 import pytest
+from asgiref.sync import iscoroutinefunction
 from django.http import HttpRequest
 from django.http import HttpResponse
 from django.urls import reverse
 
 from ddrr.apps import DDRRConfig
 from ddrr.middleware import DebugRequestsResponses
+
+
+def test_async_request_and_response_are_logged(settings, monkeypatch):
+    settings.DDRR = {}
+    request = HttpRequest()
+    response = HttpResponse()
+    events = []
+
+    async def get_response(received_request):
+        events.append(("view", received_request))
+        return response
+
+    request_logger = Mock()
+    response_logger = Mock()
+    request_logger.getEffectiveLevel.return_value = logging.DEBUG
+    response_logger.getEffectiveLevel.return_value = logging.DEBUG
+    request_logger.log.side_effect = lambda level, value: events.append(
+        ("request", level, value)
+    )
+    response_logger.log.side_effect = lambda level, value: events.append(
+        ("response", level, value)
+    )
+    monkeypatch.setattr("ddrr.middleware.request_logger", request_logger)
+    monkeypatch.setattr("ddrr.middleware.response_logger", response_logger)
+
+    middleware = DebugRequestsResponses(get_response)
+
+    assert getattr(DebugRequestsResponses, "sync_capable") is True
+    assert getattr(DebugRequestsResponses, "async_capable") is True
+    assert iscoroutinefunction(middleware)
+    assert asyncio.run(middleware(request)) is response
+    assert events == [
+        ("request", logging.DEBUG, request),
+        ("view", request),
+        ("response", logging.DEBUG, response),
+    ]
 
 
 def test_logging_uses_configured_level(settings, monkeypatch):

@@ -13,6 +13,7 @@ Django 5.2-6.0 with Python 3.11-3.14.
 - Request and response bodies when available
 - Pretty-printing optional
 - Colored output
+- Synchronous and asynchronous middleware support
 - Super easy setup
 - No extra dependencies
 
