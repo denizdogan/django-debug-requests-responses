@@ -54,10 +54,8 @@ class RequestLogRecord:
 
     @cached_property
     def query_string(self):
-        query_params = self.query_params
-        if not len(query_params):
-            return ""
-        return "?" + query_params.urlencode()
+        query_string = self.request.META.get("QUERY_STRING", "")
+        return f"?{query_string}" if query_string else ""
 
     @cached_property
     def query_params(self):
