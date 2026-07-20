@@ -91,11 +91,8 @@ DDRR = {
 By default, pretty-printing is disabled.  Set `DDRR["PRETTY_PRINT"]` to `True`
 to enable it.
 
-Pretty-printing of JSON requires no external dependency.
-
-Pretty-printing of XML uses `minidom` by default and doesn't require any extra
-dependency. If you want to use `lxml` instead, which is slightly better at
-pretty-printing XML, you can install that using `pip install ddrr[xml]`.
+Pretty-printing of JSON and XML uses the Python standard library and requires
+no external dependencies.
 
 ## How it works internally
 
@@ -133,7 +130,7 @@ the project's `.venv` when entering the repository.
 
 ```console
 $ mise install
-$ mise exec -- uv sync --extra xml
+$ mise exec -- uv sync
 $ mise exec -- uv run pre-commit install
 ```
 

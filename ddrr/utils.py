@@ -1,14 +1,9 @@
 import json
 import re
 from collections import OrderedDict
-from xml.dom import minidom
+from xml.etree import ElementTree
 
 import django
-
-try:
-    from lxml import etree  # ty: ignore[unresolved-import]
-except ImportError:
-    etree = None
 
 
 SPECIAL_HEADERS = {
@@ -168,22 +163,16 @@ def pretty_print_xml(content):
     >>> pretty_print_xml('<p></u>')
     '<p></u>'
     >>> pretty_print_xml('<p><div><b>hel</b>lo!</div></p>')
-    '<p>\\n  <div><b>hel</b>lo!</div>\\n</p>'
+    '<p>\\n  <div>\\n    <b>hel</b>lo!</div>\\n</p>'
 
     :param content: XML string
     :return: Pretty-printed XML string
     """
-    if etree:
-        try:
-            parser = etree.XMLParser(remove_blank_text=True)
-            tree = etree.fromstring(content, parser)
-            return etree.tostring(tree, encoding=str, pretty_print=True).rstrip("\r\n")
-        except etree.XMLSyntaxError:
-            return content
-    # noinspection PyBroadException
     try:
-        return minidom.parseString(content).toprettyxml(indent="  ").rstrip("\r\n")
-    except Exception:
+        root = ElementTree.fromstring(content)
+        ElementTree.indent(root, space="  ")
+        return ElementTree.tostring(root, encoding="unicode")
+    except ElementTree.ParseError:
         return content
 
 

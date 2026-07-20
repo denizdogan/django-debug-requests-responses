@@ -26,6 +26,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 
 ### Removed
 
+- Optional `lxml` dependency and `xml` extra; XML pretty-printing now uses the Python standard library
 - Runtime dependency on attrs
 - Support for Python < 3.11
 - Support for Django < 5.2

@@ -30,9 +30,6 @@ dependencies = [
     "Django>=5.2,<6.1",
 ]
 
-[project.optional-dependencies]
-xml = ["lxml>=5.4,<7"]
-
 [project.urls]
 Homepage = "https://github.com/denizdogan/django-debug-requests-responses"
 Repository = "https://github.com/denizdogan/django-debug-requests-responses"
