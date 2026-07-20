@@ -8,6 +8,28 @@ from django.urls import reverse
 from ddrr.middleware import DebugRequestsResponses
 
 
+@pytest.mark.parametrize("failing_logger", ["request_logger", "response_logger"])
+def test_logging_failure_does_not_interrupt_request(
+    settings, monkeypatch, failing_logger
+):
+    settings.DDRR = {}
+    request = HttpRequest()
+    response = HttpResponse()
+    get_response = Mock(return_value=response)
+    loggers = {
+        "request_logger": Mock(),
+        "response_logger": Mock(),
+    }
+    loggers[failing_logger].debug.side_effect = RuntimeError("handler failed")
+    for name, logger in loggers.items():
+        monkeypatch.setattr(f"ddrr.middleware.{name}", logger)
+
+    middleware = DebugRequestsResponses(get_response)
+
+    assert middleware(request) is response
+    get_response.assert_called_once_with(request)
+
+
 def test_request_and_response_are_logged(client, caplog):
     """
     Requests and responses are logged.

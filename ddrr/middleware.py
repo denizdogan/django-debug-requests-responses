@@ -4,6 +4,13 @@ from ddrr.loggers import request_logger
 from ddrr.loggers import response_logger
 
 
+def _log_safely(logger, value):
+    try:
+        logger.debug(value)
+    except Exception:
+        pass
+
+
 class DebugRequestsResponses:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -13,8 +20,8 @@ class DebugRequestsResponses:
 
     def __call__(self, request):
         if self.enable_requests:
-            request_logger.debug(request)
+            _log_safely(request_logger, request)
         response = self.get_response(request)
         if self.enable_responses:
-            response_logger.debug(response)
+            _log_safely(response_logger, response)
         return response

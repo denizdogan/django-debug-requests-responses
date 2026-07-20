@@ -24,6 +24,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 - Continue rendering request logs when the request body has already been consumed #6
 - Keep `DISABLE_DJANGO_SERVER_LOG` effective when Django reapplies its logging configuration
 - Respect the `ENABLE_REQUESTS` and `ENABLE_RESPONSES` settings
+- Prevent logging failures from interrupting request handling
 
 ### Removed
 
