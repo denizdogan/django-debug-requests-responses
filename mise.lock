@@ -85,6 +85,45 @@ url = "https://github.com/rhysd/actionlint/releases/download/v1.7.12/actionlint_
 url_api = "https://api.github.com/repos/rhysd/actionlint/releases/assets/384924919"
 provenance = "github-attestations"
 
+[[tools."github:charmbracelet/freeze"]]
+version = "0.2.2"
+backend = "github:charmbracelet/freeze"
+
+[tools."github:charmbracelet/freeze"."platforms.linux-arm64"]
+checksum = "sha256:ba1164c2e6d573af32df13ddc5868f7cdfc8b9992f26f53695787ca5f4274023"
+url = "https://github.com/charmbracelet/freeze/releases/download/v0.2.2/freeze_0.2.2_Linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/charmbracelet/freeze/releases/assets/242747207"
+
+[tools."github:charmbracelet/freeze"."platforms.linux-arm64-musl"]
+checksum = "sha256:ba1164c2e6d573af32df13ddc5868f7cdfc8b9992f26f53695787ca5f4274023"
+url = "https://github.com/charmbracelet/freeze/releases/download/v0.2.2/freeze_0.2.2_Linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/charmbracelet/freeze/releases/assets/242747207"
+
+[tools."github:charmbracelet/freeze"."platforms.linux-x64"]
+checksum = "sha256:012fdbdd16c0c19570f9052aac34d16d93d7d0d3b565b05374cc59492f53539b"
+url = "https://github.com/charmbracelet/freeze/releases/download/v0.2.2/freeze_0.2.2_Linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/charmbracelet/freeze/releases/assets/242747186"
+
+[tools."github:charmbracelet/freeze"."platforms.linux-x64-musl"]
+checksum = "sha256:012fdbdd16c0c19570f9052aac34d16d93d7d0d3b565b05374cc59492f53539b"
+url = "https://github.com/charmbracelet/freeze/releases/download/v0.2.2/freeze_0.2.2_Linux_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/charmbracelet/freeze/releases/assets/242747186"
+
+[tools."github:charmbracelet/freeze"."platforms.macos-arm64"]
+checksum = "sha256:6936ebad96dda73a6c952d7e945106916c4d4345334828109b4db6ddbb9aabee"
+url = "https://github.com/charmbracelet/freeze/releases/download/v0.2.2/freeze_0.2.2_Darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/charmbracelet/freeze/releases/assets/242747208"
+
+[tools."github:charmbracelet/freeze"."platforms.macos-x64"]
+checksum = "sha256:7ba01bc3f7f255bee2fe84847e8beeb1caa84914a49f4cf32e0147693d5e385f"
+url = "https://github.com/charmbracelet/freeze/releases/download/v0.2.2/freeze_0.2.2_Darwin_x86_64.tar.gz"
+url_api = "https://api.github.com/repos/charmbracelet/freeze/releases/assets/242747185"
+
+[tools."github:charmbracelet/freeze"."platforms.windows-x64"]
+checksum = "sha256:971fc4b83ca797835505929620012db39a9c5aa849dccca369e852575fb1d344"
+url = "https://github.com/charmbracelet/freeze/releases/download/v0.2.2/freeze_0.2.2_Windows_x86_64.zip"
+url_api = "https://api.github.com/repos/charmbracelet/freeze/releases/assets/242747196"
+
 [[tools.python]]
 version = "3.11.15"
 backend = "core:python"

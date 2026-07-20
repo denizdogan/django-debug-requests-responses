@@ -1,6 +1,7 @@
 [tools]
 act = "0.2"
 actionlint = "1"
+"github:charmbracelet/freeze" = "0.2.2"
 python = ["3.14", "3.13", "3.12", "3.11"]
 ruff = "0.15"
 ty = "0.0"
@@ -9,6 +10,27 @@ uv = "0.11"
 [tasks.act]
 description = "Run GitHub Actions locally"
 run = "act"
+
+[tasks.freeze]
+description = "Generate the README output image"
+run = '''
+mkdir -p docs
+freeze \
+  --window \
+  --background "#0f172a" \
+  --margin 32 \
+  --padding 40 \
+  --height 740 \
+  --font.size 26 \
+  --font.ligatures \
+  --border.radius 32 \
+  --border.width 2 \
+  --border.color "#334155" \
+  --shadow.blur 24 \
+  --shadow.y 20 \
+  --execute "python example/screenshot.py" \
+  --output docs/ddrr-output.png
+'''
 
 [settings]
 lockfile = true
