@@ -4,6 +4,9 @@ on:
 - push
 - pull_request
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +17,19 @@ jobs:
         cache: ${{ !env.ACT }}
     - name: Sync dependencies
       run: uv sync --locked
+    - name: Ruff lint
+      run: ruff check .
+    - name: Ruff format
+      run: ruff format --check .
     - name: Type check
       run: ty check
+    - name: GitHub Actions lint
+      run: actionlint
     - name: Tox
       run: uv run --locked tox --colored no
+    - name: Build package
+      run: uv build
+    - name: Smoke test wheel
+      run: uv run --isolated --no-project --with ./dist/*.whl python -c "import ddrr"
+    - name: Smoke test source distribution
+      run: uv run --isolated --no-project --with ./dist/*.tar.gz python -c "import ddrr"
