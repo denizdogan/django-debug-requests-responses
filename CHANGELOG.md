@@ -24,7 +24,6 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 ### Fixed
 
 - Continue rendering request logs when the request body has already been consumed #6
-- Keep `DISABLE_DJANGO_SERVER_LOG` effective when Django reapplies its logging configuration
 - Respect the `ENABLE_REQUESTS` and `ENABLE_RESPONSES` settings
 - Prevent logging failures from interrupting request handling
 - Emit request and response records at the configured `LEVEL`
@@ -36,6 +35,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 ### Removed
 
 - Django template formatter classes, custom templates, and the `REQUEST_TEMPLATE_NAME`, `REQUEST_TEMPLATE`, `RESPONSE_TEMPLATE_NAME`, and `RESPONSE_TEMPLATE` settings
+- `DISABLE_DJANGO_SERVER_LOG`; configure `django.server` through Django's `LOGGING` setting instead
 - Optional `lxml` dependency and `xml` extra; XML pretty-printing now uses the Python standard library
 - Runtime dependency on attrs
 - Support for Python < 3.11

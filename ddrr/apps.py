@@ -11,14 +11,6 @@ from ddrr.loggers import response_logger
 logger = logging.getLogger(__name__)
 
 
-class _RejectAllFilter(logging.Filter):
-    def filter(self, record):
-        return False
-
-
-reject_all_filter = _RejectAllFilter()
-
-
 class DDRRConfig(AppConfig):
     name = "ddrr"
 
@@ -42,7 +34,6 @@ class DDRRConfig(AppConfig):
         response_handler = s("RESPONSE_HANDLER", logging.StreamHandler())
         colors = s("ENABLE_COLORS", True)
         limit_body = s("LIMIT_BODY", None)
-        disable_django_server_log = s("DISABLE_DJANGO_SERVER_LOG", False)
 
         # set up request logger and handler
         request_handler.setLevel(level)
@@ -62,11 +53,3 @@ class DDRRConfig(AppConfig):
         response_handler.setFormatter(
             ResponseFormatter(pretty=pretty, colors=colors, limit_body=limit_body)
         )
-
-        # disable django server log
-        if disable_django_server_log:
-            django_server_logger = logging.getLogger("django.server")
-            django_server_logger.disabled = True
-            # WSGI setup reapplies Django's logging configuration after app
-            # initialization, resetting `disabled`; logger filters survive it.
-            django_server_logger.addFilter(reject_all_filter)
