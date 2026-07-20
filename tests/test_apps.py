@@ -6,6 +6,23 @@ import pytest
 from ddrr.apps import DDRRConfig
 
 
+def test_ready_is_idempotent_and_disables_propagation(settings, monkeypatch):
+    settings.DDRR = {}
+    request_logger = logging.Logger("test-ddrr-request-logger")
+    response_logger = logging.Logger("test-ddrr-response-logger")
+    monkeypatch.setattr("ddrr.apps.request_logger", request_logger)
+    monkeypatch.setattr("ddrr.apps.response_logger", response_logger)
+    config = DDRRConfig("ddrr", ddrr)
+
+    config.ready()
+    config.ready()
+
+    assert len(request_logger.handlers) == 1
+    assert len(response_logger.handlers) == 1
+    assert request_logger.propagate is False
+    assert response_logger.propagate is False
+
+
 @pytest.mark.parametrize(
     ("enable_requests", "enable_responses"),
     [

@@ -36,12 +36,16 @@ class DDRRConfig(AppConfig):
         limit_body = s("LIMIT_BODY", None)
 
         # set up request logger and handler
+        request_logger.handlers.clear()
+        request_logger.propagate = False
         request_handler.setLevel(level)
         request_logger.setLevel(level)
         if enable_requests:
             request_logger.addHandler(request_handler)
 
         # set up response logger and handler
+        response_logger.handlers.clear()
+        response_logger.propagate = False
         response_handler.setLevel(level)
         response_logger.setLevel(level)
         if enable_responses:
