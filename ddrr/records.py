@@ -86,6 +86,16 @@ class ResponseLogRecord:
         return dict(self.response.items())
 
     @cached_property
+    def header_items(self):
+        return [
+            *self.headers.items(),
+            *(
+                ("Set-Cookie", cookie.OutputString())
+                for cookie in self.response.cookies.values()
+            ),
+        ]
+
+    @cached_property
     def reason_phrase(self):
         return self.response.reason_phrase
 

@@ -84,6 +84,8 @@ def test_default_request_template_uses_directional_header():
 
 def test_default_response_template_uses_directional_header():
     response = HttpResponse(b"Created", status=201, content_type="text/plain")
+    response.set_cookie("sessionid", "abc", httponly=True)
+    response.set_cookie("theme", "dark")
     record = logging.LogRecord(
         name="test",
         level=logging.DEBUG,
@@ -101,4 +103,6 @@ def test_default_response_template_uses_directional_header():
 
     assert output.startswith("→ 201 Created\n")
     assert "  Content-Type: text/plain\n" in output
+    assert f"  Set-Cookie: {response.cookies['sessionid'].OutputString()}\n" in output
+    assert f"  Set-Cookie: {response.cookies['theme'].OutputString()}\n" in output
     assert output.endswith("\nCreated\n")

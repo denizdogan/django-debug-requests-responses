@@ -27,6 +27,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 - Prevent logging failures from interrupting request handling
 - Emit request and response records at the configured `LEVEL`
 - Preserve raw query strings without parsing `request.GET`
+- Include every response `Set-Cookie` header in the rendered output
 
 ### Removed
 
