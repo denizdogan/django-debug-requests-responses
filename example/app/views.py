@@ -13,6 +13,11 @@ def unauthorized(request):
     return HttpResponse("Unauthorized", status=401)
 
 
+def terminal_controls(request):
+    content = "normal line\n→ forged response\x1b[31m red text\x1b[0m\n"
+    return HttpResponse(content, content_type="text/plain")
+
+
 def ugly_xml(request):
     string = """
         <message>

@@ -4,8 +4,13 @@ Get more out of your `runserver` development output! Print request and response
 headers, body (with pretty-printing), etc.  Highly customizable! Supports
 Django 5.2-6.0 with Python 3.11-3.14.
 
+> **Warning:** DDRR is intended only for trusted development environments. It
+> logs headers—including authorization and cookie headers—and bodies without
+> redaction. Do not enable it where this data or the resulting logs may be
+> exposed to untrusted users.
+
 - Full request headers
-- The entire request body
+- Request and response bodies when available
 - Pretty-printing optional
 - Colored output
 - Super easy setup
@@ -23,8 +28,8 @@ DDRR can also be used for general logging with some configuration of your own.
 
 3. Insert `"ddrr.middleware.DebugRequestsResponses"` first in `MIDDLEWARE`
 
-**Done!** When you run `runserver`, you'll now get the entire HTTP requests and
-responses, including headers and bodies.
+**Done!** When you run `runserver`, you'll see requests and responses, including
+headers and available bodies.
 
 To adjust DDRR's logging behavior, read on...
 
@@ -45,7 +50,12 @@ DDRR = {
 }
 ```
 
+### Output safety
 
+DDRR renders terminal control characters as visible escape sequences. Newlines
+inside single-line fields such as paths and headers are escaped, while body
+newlines are preserved and every body line is indented so it cannot resemble a
+separate request or response log entry.
 
 ### Pretty-printing
 

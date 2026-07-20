@@ -8,6 +8,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 
 - Support for Python 3.12, 3.13, and 3.14
 - Support for Django 5.2 and 6.0
+- Example route demonstrating safe terminal-control rendering
 
 ### Changed
 
@@ -30,6 +31,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 - Preserve raw query strings without parsing `request.GET`
 - Include every response `Set-Cookie` header in the rendered output
 - Restore the example PDF route with a bundled binary document
+- Escape terminal controls and indent body output
 
 ### Removed
 
