@@ -1,23 +1,22 @@
 # Django Debug Requests & Responses (DDRR)
 
-Get more out of your `runserver` development output! Print request and response
-headers, body (with pretty-printing), etc.  Highly customizable! Supports
-Django 5.2-6.0 with Python 3.11-3.14.
+Inspect Django development traffic directly in your console. DDRR logs request
+and response metadata, headers, and available bodies, with optional JSON and XML
+pretty-printing. It supports Django 5.2 and 6.0 on their compatible Python
+versions from 3.11 through 3.14.
 
 > **Warning:** DDRR is intended only for trusted development environments. It
 > logs headers—including authorization and cookie headers—and bodies without
 > redaction. Do not enable it where this data or the resulting logs may be
 > exposed to untrusted users.
 
-- Full request headers
+- Request and response headers
 - Request and response bodies when available
-- Pretty-printing optional
+- Optional JSON and XML pretty-printing
 - Colored output
 - Synchronous and asynchronous middleware support
-- Super easy setup
+- Minimal setup
 - No extra dependencies
-
-DDRR can also be used for general logging with some configuration of your own.
 
 ## Installation
 
@@ -32,12 +31,27 @@ DDRR can also be used for general logging with some configuration of your own.
 **Done!** When you run `runserver`, you'll see requests and responses, including
 headers and available bodies.
 
+## Example output
+
+```text
+← GET /api/widgets?active=true
+  Host: localhost:8000
+  Accept: application/json
+
+→ 200 OK
+  Content-Type: application/json
+  Set-Cookie: sessionid=...; HttpOnly; Path=/
+
+  [{"id": 1, "name": "example"}]
+```
+
 To adjust DDRR's logging behavior, read on...
 
 ## Customization
 
 ```python
 import logging
+
 DDRR = {
     "ENABLE_REQUESTS": True,  # enable request logging
     "ENABLE_RESPONSES": True,  # enable response logging
@@ -59,7 +73,7 @@ separate request or response log entry.
 
 ### Pretty-printing
 
-By default, pretty-printing is disabled.  Set `DDRR["PRETTY_PRINT"]` to `True`
+By default, pretty-printing is disabled. Set `DDRR["PRETTY_PRINT"]` to `True`
 to enable it.
 
 Pretty-printing of JSON and XML uses the Python standard library and requires
@@ -82,6 +96,17 @@ configure the handlers to send it elsewhere.
 ## Similar projects
 
 - [Django Debug Toolbar](https://django-debug-toolbar.readthedocs.io)
+
+## Example application
+
+Run the bundled example from the repository root:
+
+```console
+$ mise exec -- uv run python example/manage.py runserver
+```
+
+The index page links to JSON, XML, binary, streaming, and terminal-control
+examples.
 
 ## Development and contributions
 
@@ -145,19 +170,5 @@ $ mise exec -- uv run pytest
 Run tests with every supported Python and Django combination:
 
 ```console
-$ mise exec -- uv run tox
-```
-
-### Running GitHub Actions locally
-
-Use [act](https://github.com/nektos/act).
-
-```console
-$ act
-```
-
-If you are running macOS, you may need to use:
-
-```console
-$ act --container-architecture linux/amd64
+$ mise exec -- uv run tox --colored no
 ```

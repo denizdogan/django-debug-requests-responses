@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-07-20
+
 With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 
 ### Added
@@ -119,4 +121,5 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 
 - Initial release
 
-- [unreleased]: https://github.com/denizdogan/django-debug-requests-responses/compare/3.1.0...HEAD
+[Unreleased]: https://github.com/denizdogan/django-debug-requests-responses/compare/4.0.0...HEAD
+[4.0.0]: https://github.com/denizdogan/django-debug-requests-responses/compare/3.1.0...4.0.0

@@ -1,7 +1,7 @@
 [project]
 name = "ddrr"
-version = "3.1.0"
-description = "Print request and response headers, body (with pretty-printing), etc."
+version = "4.0.0"
+description = "Log Django HTTP requests and responses during development"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
@@ -33,6 +33,8 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/denizdogan/django-debug-requests-responses"
 Repository = "https://github.com/denizdogan/django-debug-requests-responses"
+Issues = "https://github.com/denizdogan/django-debug-requests-responses/issues"
+Changelog = "https://github.com/denizdogan/django-debug-requests-responses/blob/master/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
