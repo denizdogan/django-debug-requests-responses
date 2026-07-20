@@ -17,6 +17,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 - Upgrade to pytest 9 and pre-commit 4
 - Replace Faker and pytest-mock with standard-library test data and helpers
 - Include source doctests in the test suite
+- Use Django's built-in request header formatting instead of custom normalization
 
 ### Fixed
 

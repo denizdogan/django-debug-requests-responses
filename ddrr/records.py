@@ -5,7 +5,6 @@ from typing import Any
 from django.http import RawPostDataException
 from django.utils.functional import cached_property
 
-from ddrr.utils import collect_request_headers
 from ddrr.utils import pretty_print
 
 
@@ -22,7 +21,7 @@ class RequestLogRecord:
 
     @cached_property
     def headers(self):
-        return collect_request_headers(self.request)
+        return self.request.headers
 
     @cached_property
     def body(self):
