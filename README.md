@@ -65,6 +65,13 @@ to enable it.
 Pretty-printing of JSON and XML uses the Python standard library and requires
 no external dependencies.
 
+### Limitations
+
+- Request bodies that Django has already consumed are shown as unavailable.
+- Streaming response bodies are not consumed and are shown as `<streaming>`.
+- Bodies that are not valid UTF-8 are shown using Python's bytes representation.
+- `LIMIT_BODY`, when configured, truncates request and response bodies.
+
 ## How it works internally
 
 The middleware `ddrr.middleware.DebugRequestsResponses` sends request and
