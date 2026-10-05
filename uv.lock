@@ -3,9 +3,9 @@ revision = 3
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.12' and extra != 'group-4-ddrr-django52' and extra == 'group-4-ddrr-django60'",
+    "python_full_version >= '3.12' and extra != 'group-4-ddrr-django52' and extra != 'group-4-ddrr-django60'",
     "python_full_version < '3.12' and extra != 'group-4-ddrr-django52' and extra == 'group-4-ddrr-django60'",
     "extra == 'group-4-ddrr-django52' and extra != 'group-4-ddrr-django60'",
-    "python_full_version >= '3.12' and extra != 'group-4-ddrr-django52' and extra != 'group-4-ddrr-django60'",
     "python_full_version < '3.12' and extra != 'group-4-ddrr-django52' and extra != 'group-4-ddrr-django60'",
 ]
 conflicts = [[
@@ -356,7 +356,7 @@ wheels = [
 
 [[package]]
 name = "tox"
-version = "4.61.2"
+version = "4.64.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cachetools" },
@@ -371,9 +371,9 @@ dependencies = [
     { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'group-4-ddrr-django52' and extra == 'group-4-ddrr-django60')" },
     { name = "virtualenv" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c3/8b/2e25d11c05e006438f8a1f20f8814aeb576ec8b3bf157f68454d2dcc09bf/tox-4.61.2.tar.gz", hash = "sha256:463b6eeaaf0929d60b4f7a87b26f4a7a764fe9832a74bf50b4e9d259b6a8e905", size = 306825, upload-time = "2026-08-31T20:19:53.614Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/04/e0/7a2ce108942f825c1ac9a2ef931dc53b1a7d18ca25d1ae10add73aa83ebc/tox-4.64.4.tar.gz", hash = "sha256:99e2a36e75202bd468f68126be25f72b8d8483e4a27b65252d6f019e856e62fd", size = 317372, upload-time = "2026-09-27T16:20:19.793Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/50/c9/3e78716c0b994a75f064d36ae56d707435dd147d6945914aaa6372fe3ccf/tox-4.61.2-py3-none-any.whl", hash = "sha256:262efa52b735004dcef04ae4c934614ec4e5c61319a14d1e762c18db7fdb82c3", size = 227984, upload-time = "2026-08-31T20:19:51.709Z" },
+    { url = "https://files.pythonhosted.org/packages/93/ee/3283286925ad7021282b01155a3ed4fdc87fd40e1a7e5db4e25183a1592a/tox-4.64.4-py3-none-any.whl", hash = "sha256:7158441d235d9e1b588f0e9f0547c07a45b3bd2f31530adb14ff5b3c1e84daeb", size = 232543, upload-time = "2026-09-27T16:20:18.407Z" },
 ]
 
 [[package]]
