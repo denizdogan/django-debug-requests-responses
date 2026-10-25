@@ -1,8 +1,8 @@
 import logging
 
-import ddrr
 import pytest
 
+import ddrr
 from ddrr.apps import DDRRConfig
 
 

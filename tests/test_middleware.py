@@ -3,13 +3,12 @@ import logging
 from logging.handlers import BufferingHandler
 from unittest.mock import Mock
 
-import ddrr
 import pytest
 from asgiref.sync import iscoroutinefunction
-from django.http import HttpRequest
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.urls import reverse
 
+import ddrr
 from ddrr.apps import DDRRConfig
 from ddrr.middleware import DebugRequestsResponses
 
@@ -39,9 +38,9 @@ def test_async_request_and_response_are_logged(settings, monkeypatch):
 
     middleware = DebugRequestsResponses(get_response)
 
-    assert getattr(DebugRequestsResponses, "sync_capable") is True
-    assert getattr(DebugRequestsResponses, "async_capable") is True
-    assert iscoroutinefunction(middleware)
+    assert DebugRequestsResponses.sync_capable is True
+    assert DebugRequestsResponses.async_capable is True
+    assert iscoroutinefunction(middleware)  # ty: ignore[deprecated]
     assert asyncio.run(middleware(request)) is response
     assert events == [
         ("request", logging.DEBUG, request),

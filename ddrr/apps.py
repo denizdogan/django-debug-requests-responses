@@ -3,10 +3,8 @@ import logging
 from django.apps import AppConfig
 from django.conf import settings
 
-from ddrr.formatters import RequestFormatter
-from ddrr.formatters import ResponseFormatter
-from ddrr.loggers import request_logger
-from ddrr.loggers import response_logger
+from ddrr.formatters import RequestFormatter, ResponseFormatter
+from ddrr.loggers import request_logger, response_logger
 
 logger = logging.getLogger(__name__)
 

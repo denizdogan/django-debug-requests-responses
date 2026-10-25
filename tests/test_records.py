@@ -1,5 +1,4 @@
-from ddrr.records import RequestLogRecord
-from ddrr.records import ResponseLogRecord
+from ddrr.records import RequestLogRecord, ResponseLogRecord
 
 
 def test_request_log_record_accepts_formatter_alias():

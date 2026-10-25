@@ -3,13 +3,11 @@ import logging
 from django.core.management.color import supports_color
 from django.utils.termcolors import colorize
 
-from ddrr.records import RequestLogRecord
-from ddrr.records import ResponseLogRecord
-
+from ddrr.records import RequestLogRecord, ResponseLogRecord
 
 # C0 and C1 are the character ranges terminals interpret as controls.
 _CONTROL_ESCAPES = {
-    code: f"\\x{code:02x}" for code in (*range(0x00, 0x20), *range(0x7F, 0xA0))
+    code: f"\\x{code:02x}" for code in (*range(0x20), *range(0x7F, 0xA0))
 }
 _CONTROL_ESCAPES.update({ord("\t"): r"\t", ord("\n"): r"\n", ord("\r"): r"\r"})
 _BODY_CONTROL_ESCAPES = {
@@ -55,7 +53,7 @@ class RequestFormatter(logging.Formatter):
                 request.headers.items(),
                 request.body,
             )
-        except Exception:
+        except Exception:  # noqa: BLE001 - Formatting must not break requests.
             return "<request failed to format>"
 
 
@@ -77,5 +75,5 @@ class ResponseFormatter(logging.Formatter):
                 response.header_items,
                 response.content,
             )
-        except Exception:
+        except Exception:  # noqa: BLE001 - Formatting must not break requests.
             return "<response failed to format>"

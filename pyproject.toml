@@ -18,6 +18,7 @@ classifiers = [
     "Framework :: Django :: 5.2",
     "Framework :: Django :: 6",
     "Framework :: Django :: 6.0",
+    "Framework :: Django :: 6.1",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.11",
@@ -27,7 +28,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "Django>=5.2,<6.1",
+    "Django>=5.2,<6.2",
 ]
 
 [project.urls]
@@ -49,12 +50,19 @@ test = [
 ]
 django52 = ["Django~=5.2.0"]
 django60 = ["Django~=6.0.0; python_version >= '3.12'"]
+django61 = ["Django~=6.1.0; python_version >= '3.12'"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests construct isolated loggers rather than modify globally registered ones.
+"tests/test_apps.py" = ["LOG001"]
+"tests/test_middleware.py" = ["LOG001"]
 
 [tool.uv]
 conflicts = [
     [
         { group = "django52" },
         { group = "django60" },
+        { group = "django61" },
     ],
 ]
 

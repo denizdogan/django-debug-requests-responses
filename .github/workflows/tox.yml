@@ -34,6 +34,6 @@ jobs:
     - name: Build package
       run: uv build
     - name: Smoke test wheel
-      run: uv run --isolated --no-project --with ./dist/*.whl python -c "import ddrr"
+      run: uv run --isolated --no-project --with ./dist/*.whl python -I -c "import ddrr"
     - name: Smoke test source distribution
-      run: uv run --isolated --no-project --with ./dist/*.tar.gz python -c "import ddrr"
+      run: uv run --isolated --no-project --with ./dist/*.tar.gz python -I -c "import ddrr"
