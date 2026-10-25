@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [4.0.2] - 2026-10-25
+
+### Added
+
+- Add `mise run publish` for token-authenticated PyPI uploads
+
 ### Changed
 
 - Upgrade virtualenv to 21.14.13 and filelock to 4.2.1
@@ -145,6 +151,7 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 
 - Initial release
 
-[Unreleased]: https://github.com/denizdogan/django-debug-requests-responses/compare/4.0.1...HEAD
+[Unreleased]: https://github.com/denizdogan/django-debug-requests-responses/compare/4.0.2...HEAD
+[4.0.2]: https://github.com/denizdogan/django-debug-requests-responses/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/denizdogan/django-debug-requests-responses/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/denizdogan/django-debug-requests-responses/compare/3.1.0...4.0.0

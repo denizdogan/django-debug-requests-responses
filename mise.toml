@@ -31,6 +31,12 @@ freeze \
   --output docs/ddrr-output.png
 '''
 
+[tasks.publish]
+description = "Publish the current version to PyPI using an API token"
+dir = "{{config_root}}"
+raw = true
+run = "python scripts/publish.py"
+
 [settings]
 lockfile = true
 python.uv_venv_auto = "create|source"

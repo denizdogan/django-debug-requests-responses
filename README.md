@@ -161,3 +161,22 @@ Run tests with every supported Python and Django combination:
 ```console
 $ uv run tox --colored no
 ```
+
+### Publishing to PyPI
+
+From the intended release checkout, build the wheel and source distribution into
+`dist/<version>/`, where `<version>` matches `pyproject.toml`.  For example, for
+4.0.2, run `uv build --out-dir dist/4.0.2`.  Then publish them with:
+
+```console
+$ mise run publish
+```
+
+The task prompts for a PyPI API token without echoing it.  For automation, supply
+`UV_PUBLISH_TOKEN` through your secret manager or CI environment instead.  The
+token is passed to uv through its environment, not command-line arguments, and is
+not saved by the task.
+
+Only the current version's wheel and source distribution are uploaded to PyPI.
+Missing artifacts stop the task before it requests credentials.  Already-published
+identical files are skipped, so a partially completed upload can be retried.
