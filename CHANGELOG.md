@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade virtualenv to 21.14.13 and filelock to 4.2.1
+- Upgrade tox to 4.67.1
+
 ## [4.0.1] - 2026-10-25
 
 ### Added
