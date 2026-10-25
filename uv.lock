@@ -54,7 +54,7 @@ wheels = [
 
 [[package]]
 name = "ddrr"
-version = "4.0.1"
+version = "4.0.2"
 source = { editable = "." }
 dependencies = [
     { name = "django", version = "5.2.18", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12' or extra == 'group-4-ddrr-django52' or (extra == 'group-4-ddrr-django60' and extra == 'group-4-ddrr-django61')" },
