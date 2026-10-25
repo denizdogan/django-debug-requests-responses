@@ -2,7 +2,7 @@
 
 Inspect Django development traffic directly in your console.  DDRR logs request
 and response metadata, headers, and available bodies, with optional JSON and XML
-pretty-printing.  Supports Python 3.11–3.14 and Django 5.2–6.0.
+pretty-printing.  Supports Python 3.11–3.14 and Django 5.2–6.1.
 
 > **Warning:** DDRR is intended only for trusted development environments.  It
 > logs headers—including authorization and cookie headers—and bodies without

@@ -3,8 +3,7 @@ import logging
 from django.http import HttpResponse
 from django.test import RequestFactory
 
-from ddrr.formatters import RequestFormatter
-from ddrr.formatters import ResponseFormatter
+from ddrr.formatters import RequestFormatter, ResponseFormatter
 
 
 def make_record(message):

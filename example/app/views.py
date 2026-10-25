@@ -1,7 +1,6 @@
 from pathlib import Path
 
-from django.http import HttpResponse
-from django.http import StreamingHttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render
 
 

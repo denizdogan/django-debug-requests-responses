@@ -1,10 +1,12 @@
-from app.views import index
-from app.views import pdf_file
-from app.views import stream
-from app.views import terminal_controls
-from app.views import ugly_json
-from app.views import ugly_xml
-from app.views import unauthorized
+from app.views import (
+    index,
+    pdf_file,
+    stream,
+    terminal_controls,
+    ugly_json,
+    ugly_xml,
+    unauthorized,
+)
 from django.urls import path
 
 urlpatterns = [

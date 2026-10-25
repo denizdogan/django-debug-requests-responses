@@ -1,5 +1,4 @@
-from example.app.views import pdf_file
-from example.app.views import terminal_controls
+from example.app.views import pdf_file, terminal_controls
 
 
 def test_terminal_controls_example(rf):
