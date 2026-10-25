@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## [4.0.1] - 2026-10-25
+
+### Changed
+
+- Upgrade to uv 0.13.5, tox 4.65.4, tox-uv 1.37, and virtualenv 21.7.13
+- Refresh locked sqlparse, pytest-django, and pre-commit dependencies
+- Allow uv-build 0.12 and 0.13 when building distribution packages
+- Avoid duplicate CI builds for pull requests
+
 ## [4.0.0] - 2026-07-20
 
 With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
@@ -121,5 +130,6 @@ With this release, DDRR only supports Python 3.11-3.14 and Django 5.2-6.0.
 
 - Initial release
 
-[Unreleased]: https://github.com/denizdogan/django-debug-requests-responses/compare/4.0.0...HEAD
+[Unreleased]: https://github.com/denizdogan/django-debug-requests-responses/compare/4.0.1...HEAD
+[4.0.1]: https://github.com/denizdogan/django-debug-requests-responses/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/denizdogan/django-debug-requests-responses/compare/3.1.0...4.0.0
